@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// シングルトン
@@ -11,15 +12,28 @@ class HeaderTypography {
   /// fontSize:40
   static final extraLarge = _font.copyWith(fontSize: 40);
 
+  /// fontSize:40 bold
+  static final extraLargeBold =
+      HeaderTypography.extraLarge.copyWith(fontWeight: FontWeight.bold);
+
   /// fontSize:32
   static final large = _font.copyWith(fontSize: 32);
+
+  /// fontSize:32 bold
+  static final largeBold =
+      HeaderTypography.large.copyWith(fontWeight: FontWeight.bold);
 
   /// fontSize:24
   static final middle = _font.copyWith(fontSize: 24);
 
+  /// fontSize:24 bold
+  static final middleBold =
+      HeaderTypography.middle.copyWith(fontWeight: FontWeight.bold);
+
   /// fontSize:18
   static final small = _font.copyWith(fontSize: 18);
 
-  /// fontSize:14
-  static final extraSmall = _font.copyWith(fontSize: 14);
+  /// fontSize:18 bold
+  static final smallBold =
+      HeaderTypography.small.copyWith(fontWeight: FontWeight.bold);
 }
