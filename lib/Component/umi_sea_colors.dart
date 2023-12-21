@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-class UmiSeaColors extends MaterialColor {
-  const UmiSeaColors(super.primary, super.swatch);
+class UmiSeaColors {
+  static const UmiSeaColors _umiSeaColors = UmiSeaColors._singleton();
+  const UmiSeaColors._singleton();
+  factory UmiSeaColors() => _umiSeaColors;
 
   static const gray900 = Color(0xFF1F2223);
   static const gray800 = Color(0xFF363939);
