@@ -1,10 +1,10 @@
 import 'package:google_fonts/google_fonts.dart';
 
-/// Header Typography
-class Header {
-  static const Header _header = Header._singleton();
-  const Header._singleton();
-  factory Header() => _header;
+/// シングルトン
+class HeaderTypography {
+  static const HeaderTypography _header = HeaderTypography._singleton();
+  const HeaderTypography._singleton();
+  factory HeaderTypography() => _header;
 
   static final _font = GoogleFonts.kosugi();
 
