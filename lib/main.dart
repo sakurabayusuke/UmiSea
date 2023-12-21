@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:umi_sea/Component/typography/header.dart';
-import 'package:umi_sea/Component/typography/body.dart';
+import 'package:umi_sea/Component/typography/body_typography.dart';
 import 'package:umi_sea/Component/umi_sea_colors.dart';
 
 void main() {
@@ -30,7 +29,8 @@ class MyApp extends StatelessWidget {
       home: Center(
         child: Text(
           "珊瑚礁",
-          style: Body.largeBold.copyWith(color: UmiSeaColors.yellow500),
+          style:
+              BodyTypography.largeBold.copyWith(color: UmiSeaColors.yellow500),
         ),
       ),
     );
