@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:umi_sea/Component/typography/header.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,10 +25,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const Center(
+      home: Center(
         child: Text(
           "UmiSea",
-          style: TextStyle(color: Colors.blue),
+          style: Header.extraLarge,
         ),
       ),
     );
