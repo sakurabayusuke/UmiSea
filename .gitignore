@@ -90,3 +90,5 @@ android/app/google-services-dev.json
 android/app/google-services-pro.json
 
 ./fvm/flutter_sdk
+*.env
+*env.g.dart
