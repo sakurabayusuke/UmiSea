@@ -38,9 +38,9 @@ dependencies:
   flutter_riverpod: ^2.4.9
   flutter_hooks: ^0.20.3
   hooks_riverpod: ^2.4.9
-  flutter_map: ^6.1.0
-  latlong2: ^0.9.0
   google_fonts: ^6.1.0
+  mapbox_maps_flutter: ^0.5.1
+  envied: ^0.5.2
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +52,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.4.7
+  envied_generator: ^0.5.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
