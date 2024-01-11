@@ -1,4 +1,11 @@
 {
-  "cSpell.words": ["kosugi", "latlong", "mapbox", "riverpod"],
+  "cSpell.words": [
+    "cupertino",
+    "kosugi",
+    "latlong",
+    "mapbox",
+    "riverpod",
+    "Schyler"
+  ],
   "dart.flutterSdkPath": ".fvm/flutter_sdk"
 }
