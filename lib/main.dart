@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:umi_sea/Component/umi_sea_colors.dart';
-import 'package:umi_sea/Map/map_screen.dart';
+import 'package:umi_sea/Repository/shared_preference_repository.dart';
+import 'package:umi_sea/map/main_map/map_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferenceRepository().init();
+
   runApp(
     const ProviderScope(
       child: App(),

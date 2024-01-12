@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
+import 'package:umi_sea/Map/filter/filter_sheet.dart';
 import 'package:umi_sea/env/env.dart';
 import 'package:umi_sea/Component/buttons/icon_button.dart' as atom;
 import 'package:umi_sea/Component/icon/icon.dart' as atom;
 
 class MapScreen extends ConsumerWidget {
-  const MapScreen({Key? key}) : super(key: key);
+  const MapScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,7 +31,14 @@ class MapScreen extends ConsumerWidget {
             right: 24,
             child: atom.IconButton(
               icon: atom.Icon.filter,
-              onPressed: () {},
+              onPressed: () async {
+                await showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    showDragHandle: true,
+                    barrierColor: Colors.transparent,
+                    builder: (context) => const FilterSheet());
+              },
             ),
           ),
         ],
