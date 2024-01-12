@@ -15,12 +15,16 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - shared_preferences_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
   - Turf (2.7.0)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - mapbox_maps_flutter (from `.symlinks/plugins/mapbox_maps_flutter/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
 
 SPEC REPOS:
   trunk:
@@ -37,6 +41,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/mapbox_maps_flutter/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
@@ -46,6 +52,7 @@ SPEC CHECKSUMS:
   MapboxMaps: cb76511b98d3b95c74b0771ed105bc69f30ace6b
   MapboxMobileEvents: de50b3a4de180dd129c326e09cd12c8adaaa46d6
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
+  shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
   Turf: 13d1a92d969ca0311bbc26e8356cca178ce95da2
 
 PODFILE CHECKSUM: 70d9d25280d0dd177a5f637cdb0f0b0b12c6a189
