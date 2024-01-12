@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:umi_sea/Component/umi_sea_colors.dart';
 import 'package:umi_sea/map/filter/filter.dart';
 import 'package:umi_sea/map/filter/filter_repository.dart';
 import 'package:umi_sea/map/filter/filter_sheet_notifier.dart';
+import 'package:umi_sea/map/filter/filter_tile.dart';
 
 final filterSheetNotifierProvider =
     StateNotifierProvider<FilterSheetNotifier, Map<Filter, bool>>((_) {
@@ -16,21 +16,17 @@ class FilterSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var list = <Widget>[];
+    var filters = ref.watch(filterSheetNotifierProvider);
+    for (var filter in filters.keys) {
+      list.add(FilterTile(filter: filter));
+    }
+
     return SizedBox(
       height: MediaQuery.sizeOf(context).height * 0.45,
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-        ),
-        itemCount: 20,
-        itemBuilder: (context, index) => Card(
-          color: UmiSeaColors.blue400,
-          child: Center(
-            child: Text("Item $index"),
-          ),
-        ),
+      child: GridView.count(
+        crossAxisCount: 4,
+        children: list,
       ),
     );
   }
