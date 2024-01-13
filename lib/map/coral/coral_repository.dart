@@ -11,8 +11,12 @@ class CoralRepository {
 
   final Uri _uri = Uri.parse(Env.coralURL);
   final String _apiKey = Env.coralApiKey;
+  List<Coral> _cache = [];
 
   Future<List<Coral>> getAllCoral() async {
+    if (_cache.isNotEmpty) {
+      return _cache;
+    }
     var res = await http.get(_uri, headers: {"x-api-key": _apiKey});
 
     if (res.statusCode != 200) {
@@ -24,7 +28,7 @@ class CoralRepository {
     for (var coral in coralsMap) {
       corals.add(Coral.fromJson(coral));
     }
-
+    _cache = corals;
     return corals;
   }
 }
