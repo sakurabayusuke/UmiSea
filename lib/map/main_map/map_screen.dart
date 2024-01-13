@@ -5,12 +5,29 @@ import 'package:umi_sea/Map/filter/filter_sheet.dart';
 import 'package:umi_sea/env/env.dart';
 import 'package:umi_sea/Component/buttons/icon_button.dart' as atom;
 import 'package:umi_sea/Component/icon/icon.dart' as atom;
+import 'package:umi_sea/map/filter/filter.dart';
+import 'package:umi_sea/map/main_map/map_screen_notifier.dart';
+import 'package:umi_sea/map/main_map/map_screen_state.dart';
+
+final mapScreenNotifierProvider =
+    StateNotifierProvider<MapScreenNotifier, MapScreenState>((_) {
+  return MapScreenNotifier();
+});
 
 class MapScreen extends ConsumerWidget {
   const MapScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var mapNotifier = ref.watch(mapScreenNotifierProvider.notifier);
+    var filterState = ref.watch(filterSheetNotifierProvider);
+
+    if (filterState[Filter.coral]!) {
+      mapNotifier.putAllCorals(filterState);
+    } else {
+      mapNotifier.deleteAllCorals(filterState);
+    }
+
     return Scaffold(
       body: Stack(
         alignment: AlignmentDirectional.center,
@@ -25,6 +42,7 @@ class MapScreen extends ConsumerWidget {
               zoom: 14,
             ),
             styleUri: MapboxStyles.MAPBOX_STREETS,
+            onMapCreated: mapNotifier.onMapCreated,
           ),
           Positioned(
             bottom: 160,
