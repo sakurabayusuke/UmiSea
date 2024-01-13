@@ -75,7 +75,6 @@ flutter:
   assets:
     - assets/images/icons/filter.svg
     - assets/images/icons/coral.svg
-    - assets/images/maker/maker_point_coral.svg
     - assets/images/maker/maker_point_coral.png
   #   - images/a_dot_ham.jpeg
 

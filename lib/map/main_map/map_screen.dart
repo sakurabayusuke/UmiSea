@@ -22,6 +22,7 @@ class MapScreen extends ConsumerWidget {
     var mapNotifier = ref.watch(mapScreenNotifierProvider.notifier);
     var filterState = ref.watch(filterSheetNotifierProvider);
 
+    // ここで呼ぶと止まってしまう... FutureBuilder を使ってやる方法を検討
     if (filterState[Filter.coral]!) {
       mapNotifier.putAllCorals(filterState);
     } else {
