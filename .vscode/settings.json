@@ -6,7 +6,8 @@
     "mapbox",
     "prefs",
     "riverpod",
-    "Schyler"
+    "Schyler",
+    "umishiru"
   ],
   "dart.flutterSdkPath": ".fvm/flutter_sdk"
 }
