@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:umi_sea/map/coral/coral_repository.dart';
-import 'package:umi_sea/map/filter/filter.dart';
 import 'package:umi_sea/map/main_map/map_screen_state.dart';
 import 'package:umi_sea/map/main_map/point_annotation_option_creator.dart';
 
@@ -17,7 +16,7 @@ class MapScreenNotifier extends StateNotifier<MapScreenState> {
         mapboxMap: mapboxMap, pointAnnotationManager: pointManager);
   }
 
-  Future<void> putAllCorals(Map<Filter, bool> filters) async {
+  Future<void> putAllCorals() async {
     if (state.mapboxMap == null) {
       return;
     }
@@ -31,7 +30,7 @@ class MapScreenNotifier extends StateNotifier<MapScreenState> {
     state = state.copyWith(coralsPoint: coralsPointAnnotation);
   }
 
-  Future<void> deleteAllCorals(Map<Filter, bool> filters) async {
+  Future<void> deleteAllCorals() async {
     if (state.mapboxMap == null) {
       return;
     }

@@ -19,14 +19,15 @@ class MapScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var mapNotifier = ref.watch(mapScreenNotifierProvider.notifier);
-    var filterState = ref.watch(filterSheetNotifierProvider);
+    final mapNotifier = ref.watch(mapScreenNotifierProvider.notifier);
+    final filterState = ref.watch(filterSheetNotifierProvider);
+    ref.watch(mapScreenNotifierProvider);
 
     // ここで呼ぶと止まってしまう... FutureBuilder を使ってやる方法を検討
     if (filterState[Filter.coral]!) {
-      mapNotifier.putAllCorals(filterState);
+      mapNotifier.putAllCorals();
     } else {
-      mapNotifier.deleteAllCorals(filterState);
+      mapNotifier.deleteAllCorals();
     }
 
     return Scaffold(
