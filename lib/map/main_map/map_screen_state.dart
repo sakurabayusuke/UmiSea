@@ -4,26 +4,23 @@ class MapScreenState {
   MapScreenState({
     this.mapboxMap,
     this.pointAnnotationManager,
-    this.coralsPoint,
-    this.coralIsDisplaying,
+    required this.coralsPoint,
   });
 
   late final MapboxMap? mapboxMap;
   late final PointAnnotationManager? pointAnnotationManager;
-  late final List<PointAnnotation?>? coralsPoint;
-  late final bool? coralIsDisplaying;
+  final List<PointAnnotation?> coralsPoint;
 
   MapScreenState copyWith({
     MapboxMap? mapboxMap,
     PointAnnotationManager? pointAnnotationManager,
     List<PointAnnotation?>? coralsPoint,
-    bool? coralIsDisplaying,
   }) {
     return MapScreenState(
-        mapboxMap: mapboxMap ?? this.mapboxMap,
-        pointAnnotationManager:
-            pointAnnotationManager ?? this.pointAnnotationManager,
-        coralsPoint: coralsPoint ?? this.coralsPoint,
-        coralIsDisplaying: coralIsDisplaying ?? this.coralIsDisplaying);
+      mapboxMap: mapboxMap ?? this.mapboxMap,
+      pointAnnotationManager:
+          pointAnnotationManager ?? this.pointAnnotationManager,
+      coralsPoint: coralsPoint ?? this.coralsPoint,
+    );
   }
 }
