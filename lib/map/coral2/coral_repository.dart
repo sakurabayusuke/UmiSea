@@ -12,7 +12,7 @@ class CoralRepository {
   final Uri _uri = Uri.parse(Env.coralURL);
   final String _apiKey = Env.coralApiKey;
   late GeoRoot? _cache;
-  late String? _jsonCache;
+  late Map<String, dynamic>? _jsonCache;
 
   Future<GeoRoot?> getCoral() async {
     if (_cache != null) {
@@ -30,7 +30,7 @@ class CoralRepository {
     return corals;
   }
 
-  Future<String?> getCoralGeoJson() async {
+  Future<Map<String, dynamic>?> getCoralGeoJson() async {
     if (_jsonCache != null) {
       return _jsonCache!;
     }
@@ -40,7 +40,8 @@ class CoralRepository {
       return null;
     }
 
-    _jsonCache = res.body;
-    return res.body;
+    final Map<String, dynamic> geoJson = jsonDecode(res.body);
+    _jsonCache = geoJson;
+    return geoJson;
   }
 }
