@@ -76,6 +76,9 @@ flutter:
     - assets/images/icons/filter.svg
     - assets/images/icons/coral.svg
     - assets/images/maker/maker_point_coral.png
+    - assets/images/icons/coral.png
+    - assets/images/icons/coral_marker.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
