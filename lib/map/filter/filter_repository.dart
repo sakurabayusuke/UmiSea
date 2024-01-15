@@ -16,9 +16,13 @@ class FilterRepository {
     return filtersSelected;
   }
 
-  void setFilter(Map<Filter, bool> filters) {
+  void setFilters(Map<Filter, bool> filters) {
     filters.forEach((Filter key, bool value) {
       _prefs.setBool(key.name, value);
     });
+  }
+
+  void setFilter(Filter filter, bool isSelected) {
+    _prefs.setBool(filter.name, isSelected);
   }
 }

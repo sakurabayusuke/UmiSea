@@ -43,6 +43,10 @@ dependencies:
   envied: ^0.5.2
   flutter_svg: ^2.0.9
   shared_preferences: ^2.2.2
+  freezed: ^2.4.6
+  json_serializable: ^6.7.1
+  http: ^1.1.2
+  freezed_annotation: ^2.4.1
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +75,7 @@ flutter:
   assets:
     - assets/images/icons/filter.svg
     - assets/images/icons/coral.svg
+    - assets/images/maker/maker_point_coral.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
