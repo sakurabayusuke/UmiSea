@@ -1,7 +1,7 @@
 {
     "type": "geojson",
-    "data": "",
     "cluster": true,
     "clusterMaxZoom": 14,
-    "clusterRadius": 50
+    "clusterRadius": 50,
+    "data": ""
 }

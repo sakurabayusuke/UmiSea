@@ -58,7 +58,7 @@ class CoralLayerCreator {
       return false;
     }
     final source = await rootBundle.loadString(_sourcePath);
-    final sourceJson = jsonDecode(source);
+    final Map<String, dynamic> sourceJson = jsonDecode(source);
     sourceJson["data"] = corals;
     await mapboxMap.style.addStyleSource(_sourceName, jsonEncode(sourceJson));
 
@@ -74,17 +74,18 @@ class CoralLayerCreator {
       final converted = bytes.buffer.asUint8List();
       await mapboxMap.style.addStyleImage(
           _coralIconNames[i],
-          _baseScale,
+          7,
           MbxImage(
             width: _coralIconSizes[i],
             height: _coralIconSizes[i],
             data: converted,
           ),
-          true,
+          false,
           [],
           [],
           null);
     }
+
     final coralMarker =
         await mapboxMap.style.getStyleImage(_coralMarkerIconName);
     if (coralMarker != null) return;
@@ -93,13 +94,13 @@ class CoralLayerCreator {
     final converted = bytes.buffer.asUint8List();
     await mapboxMap.style.addStyleImage(
       _coralMarkerIconName,
-      _baseScale,
+      3,
       MbxImage(
         width: _coralMarkerWidth,
         height: _coralMarkerHeight,
         data: converted,
       ),
-      true,
+      false,
       [],
       [],
       null,

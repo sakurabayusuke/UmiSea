@@ -9,7 +9,6 @@
     "layout": {
         "text-field": "{point_count_abbreviated}",
         "text-font": [
-            "Kosugi Bold",
             "DIN Offc Pro Medium",
             "Arial Unicode MS Bold"
         ],
@@ -17,7 +16,7 @@
             "step",
             [
                 "get",
-                "point"
+                "point_count"
             ],
             12,
             250,
@@ -30,7 +29,7 @@
             "step",
             [
                 "get",
-                "point"
+                "point_count"
             ],
             "coral_icon_small",
             250,
