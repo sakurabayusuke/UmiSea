@@ -78,6 +78,10 @@ flutter:
     - assets/images/maker/maker_point_coral.png
     - assets/images/icons/coral.png
     - assets/images/icons/coral_marker.png
+    - assets/coral_cluster/source.json
+    - assets/coral_cluster/cluster_layer.json
+    - assets/coral_cluster/uncluster_layer.json
+    - assets/coral_cluster/cluster_count_layer.json
 
   #   - images/a_dot_ham.jpeg
 

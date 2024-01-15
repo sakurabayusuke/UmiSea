@@ -6,12 +6,13 @@ import 'package:umi_sea/env/env.dart';
 import 'package:umi_sea/Component/buttons/icon_button.dart' as atom;
 import 'package:umi_sea/Component/icon/icon.dart' as atom;
 import 'package:umi_sea/map/filter/filter.dart';
+import 'package:umi_sea/map/main_map/coral_layer_creator.dart';
 import 'package:umi_sea/map/main_map/map_screen_notifier.dart';
 import 'package:umi_sea/map/main_map/map_screen_state.dart';
 
 final mapScreenNotifierProvider =
     StateNotifierProvider<MapScreenNotifier, MapScreenState>((_) {
-  return MapScreenNotifier();
+  return MapScreenNotifier(coralLayerCreator: CoralLayerCreator());
 });
 
 class MapScreen extends ConsumerWidget {
@@ -21,13 +22,14 @@ class MapScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final mapNotifier = ref.watch(mapScreenNotifierProvider.notifier);
     final filterState = ref.watch(filterSheetNotifierProvider);
-    ref.watch(mapScreenNotifierProvider);
+    final mapState = ref.watch(mapScreenNotifierProvider);
 
-    // ここで呼ぶと止まってしまう... FutureBuilder を使ってやる方法を検討
-    if (filterState[Filter.coral]!) {
-      mapNotifier.putAllCorals();
-    } else {
-      mapNotifier.deleteAllCorals();
+    if (mapState.initialized) {
+      if (filterState[Filter.coral]!) {
+        mapNotifier.addCoralLayer();
+      } else {
+        mapNotifier.deleteAllCorals();
+      }
     }
 
     return Scaffold(
@@ -37,6 +39,7 @@ class MapScreen extends ConsumerWidget {
           MapWidget(
             resourceOptions:
                 ResourceOptions(accessToken: Env.mapboxPublicAccessToken),
+            key: const ValueKey("mapWidget"),
             cameraOptions: CameraOptions(
               center: Point(
                 coordinates: Position(139.7586677640881, 35.67369269880291),

@@ -11,8 +11,8 @@ class CoralRepository {
 
   final Uri _uri = Uri.parse(Env.coralURL);
   final String _apiKey = Env.coralApiKey;
-  late GeoRoot? _cache;
-  late Map<String, dynamic>? _jsonCache;
+  GeoRoot? _cache;
+  Map<String, dynamic>? _jsonCache;
 
   Future<GeoRoot?> getCoral() async {
     if (_cache != null) {

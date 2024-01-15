@@ -4,10 +4,12 @@
     "kosugi",
     "latlong",
     "mapbox",
+    "Offc",
     "prefs",
     "riverpod",
     "Schyler",
-    "umishiru"
+    "umishiru",
+    "uncluster"
   ],
   "dart.flutterSdkPath": ".fvm/flutter_sdk"
 }

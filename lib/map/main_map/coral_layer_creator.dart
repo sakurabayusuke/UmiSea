@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:umi_sea/Component/icon/icon_png.dart';
@@ -11,15 +13,26 @@ class CoralLayerCreator {
   final CoralRepository _coralRepository = CoralRepository();
 
   static const String _sourceName = "corals";
-  static const String _layerName = "corals";
-  static const String _coralIconBaseName = "coral-icon";
+  static const String _sourcePath = "assets/coral_cluster/source.json";
+
+  static const String _clusterLayerName = "cluster_layer";
+  static const String _clusterLayerPath =
+      "assets/coral_cluster/cluster_layer.json";
+  static const String _clusterCountLayerName = "cluster_count_layer";
+  static const String _clusterCountLayerPath =
+      "assets/coral_cluster/cluster_count_layer.json";
+  static const String _unclusterLayerName = "uncluster_layer";
+  static const String _unclusterLayerPath =
+      "assets/coral_cluster/uncluster_layer.json";
+
+  static const String _coralIconBaseName = "coral_icon_";
   static const List<String> _coralIconNames = [
     "${_coralIconBaseName}large",
     "${_coralIconBaseName}middle",
     "${_coralIconBaseName}small",
   ];
   static const List<int> _coralIconSizes = [56, 40, 24];
-  static const String _coralMarkerIconName = "coral-marker-icon";
+  static const String _coralMarkerIconName = "coral_marker_icon";
   static const double _baseScale = 1.0;
   static const int _coralMarkerHeight = 46;
   static const int _coralMarkerWidth = 31;
@@ -44,14 +57,10 @@ class CoralLayerCreator {
     if (corals == null) {
       return false;
     }
-    final geojson = <String, dynamic>{
-      "type": "geojson",
-      "data": corals,
-      "cluster": true,
-      "clusterMaxZoom": 14,
-      "clusterRadius": 50
-    };
-    mapboxMap.style.addStyleSource(_sourceName, geojson.toString());
+    final source = await rootBundle.loadString(_sourcePath);
+    final sourceJson = jsonDecode(source);
+    sourceJson["data"] = corals;
+    await mapboxMap.style.addStyleSource(_sourceName, jsonEncode(sourceJson));
 
     return true;
   }
@@ -63,19 +72,18 @@ class CoralLayerCreator {
 
       final bytes = await rootBundle.load(IconPng.coral.path);
       final converted = bytes.buffer.asUint8List();
-      mapboxMap.style.addStyleImage(
-        _coralIconNames[i],
-        _baseScale,
-        MbxImage(
-          width: _coralIconSizes[i],
-          height: _coralIconSizes[i],
-          data: converted,
-        ),
-        true,
-        [],
-        [],
-        null,
-      );
+      await mapboxMap.style.addStyleImage(
+          _coralIconNames[i],
+          _baseScale,
+          MbxImage(
+            width: _coralIconSizes[i],
+            height: _coralIconSizes[i],
+            data: converted,
+          ),
+          true,
+          [],
+          [],
+          null);
     }
     final coralMarker =
         await mapboxMap.style.getStyleImage(_coralMarkerIconName);
@@ -83,7 +91,7 @@ class CoralLayerCreator {
 
     final bytes = await rootBundle.load(IconPng.coralMarker.path);
     final converted = bytes.buffer.asUint8List();
-    mapboxMap.style.addStyleImage(
+    await mapboxMap.style.addStyleImage(
       _coralMarkerIconName,
       _baseScale,
       MbxImage(
@@ -98,11 +106,26 @@ class CoralLayerCreator {
     );
   }
 
-  Future<bool> _addLayer(MapboxMap mapboxMap) async {
-    final layerExist = await mapboxMap.style.styleLayerExists(_layerName);
-    if (layerExist) {
-      return true;
+  Future<void> _addLayer(MapboxMap mapboxMap) async {
+    final clusterLayerExist =
+        await mapboxMap.style.styleLayerExists(_clusterLayerName);
+    if (!clusterLayerExist) {
+      final layer = await rootBundle.loadString(_clusterLayerPath);
+      await mapboxMap.style.addStyleLayer(layer, null);
     }
-    return true;
+
+    final clusterCountLayerExist =
+        await mapboxMap.style.styleLayerExists(_clusterCountLayerName);
+    if (!clusterCountLayerExist) {
+      final layer = await rootBundle.loadString(_clusterCountLayerPath);
+      await mapboxMap.style.addStyleLayer(layer, null);
+    }
+
+    final unclusterLayerExist =
+        await mapboxMap.style.styleLayerExists(_unclusterLayerName);
+    if (!unclusterLayerExist) {
+      final layer = await rootBundle.loadString(_unclusterLayerPath);
+      await mapboxMap.style.addStyleLayer(layer, null);
+    }
   }
 }

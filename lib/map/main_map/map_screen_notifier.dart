@@ -1,52 +1,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
-import 'package:umi_sea/map/coral/coral_repository.dart';
+import 'package:umi_sea/map/main_map/coral_layer_creator.dart';
 import 'package:umi_sea/map/main_map/map_screen_state.dart';
-import 'package:umi_sea/map/main_map/point_annotation_option_creator.dart';
 
 class MapScreenNotifier extends StateNotifier<MapScreenState> {
-  MapScreenNotifier() : super(MapScreenState(
-            // coralsPoint: [],
-            ));
-
-  final CoralRepository coralRepository = CoralRepository();
+  MapScreenNotifier({required this.coralLayerCreator})
+      : super(
+            const MapScreenState(initialized: false, coralIsDisplaying: false));
+  late final MapboxMap? mapboxMap;
+  final CoralLayerCreator coralLayerCreator;
 
   void onMapCreated(MapboxMap mapboxMap) async {
-    // final pointManager =
-    //     await mapboxMap.annotations.createPointAnnotationManager();
-    state = state.copyWith(
-      mapboxMap: mapboxMap,
-      // pointAnnotationManager: pointManager,
-    );
+    this.mapboxMap = mapboxMap;
+    state = state.copyWith(initialized: true);
   }
 
-  Future<void> putAllCorals() async {
-    if (state.mapboxMap == null) {
-      return;
-    }
-    // if (state.coralsPoint.isNotEmpty) {
-    //   return;
-    // }
-    // final pointCreator = PointAnnotationOptionCreator();
-    // final coralsPoint = await pointCreator.getCoralAnnotations;
-    // final coralsPointAnnotation =
-    //     await state.pointAnnotationManager!.createMulti(coralsPoint);
-    // state = state.copyWith(coralsPoint: coralsPointAnnotation);
+  Future<void> addCoralLayer() async {
+    await coralLayerCreator.create(mapboxMap!);
+    state = state.copyWith(coralIsDisplaying: true);
   }
 
-  Future<void> deleteAllCorals() async {
-    // if (state.mapboxMap == null) {
-    //   return;
-    // }
-    // if (state.coralsPoint.isEmpty) {
-    //   return;
-    // }
-    // final futures = <Future>[];
-    // for (final point in state.coralsPoint) {
-    //   if (point == null) continue;
-    //   futures.add(state.pointAnnotationManager!.delete(point));
-    // }
-    // await Future.wait(futures);
-    // state = state.copyWith(coralsPoint: []);
-  }
+  Future<void> deleteAllCorals() async {}
 }

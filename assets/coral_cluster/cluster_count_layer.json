@@ -1,0 +1,43 @@
+{
+    "id": "cluster_count_layer",
+    "type": "symbol",
+    "source": "corals",
+    "filter": [
+        "has",
+        "point_count"
+    ],
+    "layout": {
+        "text-field": "{point_count_abbreviated}",
+        "text-font": [
+            "Kosugi Bold",
+            "DIN Offc Pro Medium",
+            "Arial Unicode MS Bold"
+        ],
+        "text-size": [
+            "step",
+            [
+                "get",
+                "point"
+            ],
+            12,
+            250,
+            14,
+            750,
+            16
+        ],
+        "text-anchor": "top",
+        "icon-image": [
+            "step",
+            [
+                "get",
+                "point"
+            ],
+            "coral_icon_small",
+            250,
+            "coral_icon_middle",
+            750,
+            "coral_icon_large"
+        ],
+        "icon-anchor": "bottom"
+    }
+}
