@@ -6,8 +6,8 @@ import 'package:umi_sea/Component/icon/icon_png.dart';
 import 'package:umi_sea/map/coral2/coral_repository.dart';
 
 class CoralLayerCreator {
-  static final _repository = CoralLayerCreator._internal();
-  factory CoralLayerCreator() => _repository;
+  static final _creator = CoralLayerCreator._internal();
+  factory CoralLayerCreator() => _creator;
   CoralLayerCreator._internal();
 
   final CoralRepository _coralRepository = CoralRepository();
