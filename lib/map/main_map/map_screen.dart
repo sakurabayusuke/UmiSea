@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart' as map;
 import 'package:umi_sea/Map/filter/filter_sheet.dart';
 import 'package:umi_sea/env/env.dart';
 import 'package:umi_sea/Component/buttons/icon_button.dart' as atom;
@@ -9,6 +9,7 @@ import 'package:umi_sea/map/filter/filter.dart';
 import 'package:umi_sea/map/coral/coral_layer.dart';
 import 'package:umi_sea/map/main_map/map_screen_notifier.dart';
 import 'package:umi_sea/map/main_map/map_screen_state.dart';
+import 'package:umi_sea/splash_screen.dart';
 
 final mapScreenNotifierProvider =
     StateNotifierProvider<MapScreenNotifier, MapScreenState>((_) {
@@ -33,39 +34,48 @@ class MapScreen extends ConsumerWidget {
     }
 
     return Scaffold(
-      body: Stack(
-        alignment: AlignmentDirectional.center,
-        children: [
-          MapWidget(
-            resourceOptions:
-                ResourceOptions(accessToken: Env.mapboxPublicAccessToken),
-            key: const ValueKey("mapWidget"),
-            cameraOptions: CameraOptions(
-              center: Point(
-                coordinates: Position(139.7586677640881, 35.67369269880291),
-              ).toJson(),
-              zoom: 5,
-            ),
-            styleUri: MapboxStyles.MAPBOX_STREETS,
-            onMapCreated: mapNotifier.onMapCreated,
+        body: Stack(
+      alignment: AlignmentDirectional.center,
+      children: [
+        map.MapWidget(
+          resourceOptions:
+              map.ResourceOptions(accessToken: Env.mapboxPublicAccessToken),
+          key: const ValueKey("mapWidget"),
+          cameraOptions: map.CameraOptions(
+            center: map.Point(
+              coordinates: map.Position(139.7586677640881, 35.67369269880291),
+            ).toJson(),
+            zoom: 5,
           ),
-          Positioned(
-            bottom: 160,
-            right: 24,
-            child: atom.IconButton(
-              icon: atom.Icon.filter,
-              onPressed: () async {
-                await showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    showDragHandle: true,
-                    barrierColor: Colors.transparent,
-                    builder: (context) => const FilterSheet());
-              },
-            ),
+          styleUri: map.MapboxStyles.MAPBOX_STREETS,
+          onMapCreated: mapNotifier.onMapCreated,
+        ),
+        Positioned(
+          bottom: 160,
+          right: 24,
+          child: atom.IconButton(
+            icon: atom.Icon.filter,
+            onPressed: () async {
+              await showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  showDragHandle: true,
+                  barrierColor: Colors.transparent,
+                  builder: (context) => const FilterSheet());
+            },
           ),
-        ],
-      ),
-    );
+        ),
+        Visibility(
+          visible: !mapState.splashIsEnd,
+          child: AnimatedOpacity(
+            curve: Curves.easeOutBack,
+            onEnd: mapNotifier.removeSplash,
+            opacity: !mapState.initialized ? 1.0 : 0.0,
+            duration: const Duration(milliseconds: 1500),
+            child: const SplashScreen(),
+          ),
+        ),
+      ],
+    ));
   }
 }

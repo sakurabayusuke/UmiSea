@@ -21,24 +21,24 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        // TODO: アプリタイトルが決まり次第適用
-        title: 'UmiSea',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: const ColorScheme(
-            brightness: Brightness.light,
-            primary: UmiSeaColors.blue400,
-            onPrimary: UmiSeaColors.gray000,
-            secondary: UmiSeaColors.yellow500,
-            onSecondary: UmiSeaColors.gray900,
-            error: UmiSeaColors.red500,
-            onError: UmiSeaColors.gray900,
-            background: UmiSeaColors.gray000,
-            onBackground: UmiSeaColors.gray900,
-            surface: UmiSeaColors.gray000,
-            onSurface: UmiSeaColors.gray900,
-          ),
+      title: 'Sea Farlen',
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: const ColorScheme(
+          brightness: Brightness.light,
+          primary: UmiSeaColors.blue400,
+          onPrimary: UmiSeaColors.gray000,
+          secondary: UmiSeaColors.yellow500,
+          onSecondary: UmiSeaColors.gray900,
+          error: UmiSeaColors.red500,
+          onError: UmiSeaColors.gray900,
+          background: UmiSeaColors.gray000,
+          onBackground: UmiSeaColors.gray900,
+          surface: UmiSeaColors.gray000,
+          onSurface: UmiSeaColors.gray900,
         ),
-        home: const MapScreen());
+      ),
+      home: const MapScreen(),
+    );
   }
 }
