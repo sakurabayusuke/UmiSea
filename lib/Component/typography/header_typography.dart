@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:umi_sea/Component/umi_sea_colors.dart';
 
 /// シングルトン
 class HeaderTypography {
@@ -8,6 +9,11 @@ class HeaderTypography {
   factory HeaderTypography() => _header;
 
   static final _font = GoogleFonts.kosugi();
+  static final _splashFont = GoogleFonts.gidugu();
+
+  /// fontSize: 96
+  static final splash =
+      _splashFont.copyWith(fontSize: 96, color: UmiSeaColors.gray000);
 
   /// fontSize:40
   static final extraLarge = _font.copyWith(fontSize: 40);

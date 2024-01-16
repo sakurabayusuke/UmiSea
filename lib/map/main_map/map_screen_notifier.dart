@@ -5,13 +5,14 @@ import 'package:umi_sea/map/main_map/map_screen_state.dart';
 
 class MapScreenNotifier extends StateNotifier<MapScreenState> {
   MapScreenNotifier({required this.coralLayerCreator})
-      : super(
-            const MapScreenState(initialized: false, coralIsDisplaying: false));
+      : super(const MapScreenState(
+            initialized: false, coralIsDisplaying: false, splashIsEnd: false));
   late final MapboxMap? mapboxMap;
   final CoralLayer coralLayerCreator;
 
   void onMapCreated(MapboxMap mapboxMap) async {
     this.mapboxMap = mapboxMap;
+    await Future.delayed(const Duration(milliseconds: 1500));
     state = state.copyWith(initialized: true);
   }
 
@@ -25,5 +26,9 @@ class MapScreenNotifier extends StateNotifier<MapScreenState> {
     if (!state.coralIsDisplaying) return;
     await coralLayerCreator.remove(mapboxMap!);
     state = state.copyWith(coralIsDisplaying: false);
+  }
+
+  void removeSplash() {
+    state = state.copyWith(splashIsEnd: true);
   }
 }

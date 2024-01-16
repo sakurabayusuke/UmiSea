@@ -31,13 +31,22 @@ class CoralLayer {
   /// アイコンの幅と高さ。必須だがどんなサイズを入れても、変化が見られない
   static const int _iconWidthAndHeight = 0;
 
+  /// レイヤーが追加中かどうか。状況によって複数回 create がコールされてしまうため、その防止策。
+  static bool _addingLayer = false;
+
   Future<bool> create(MapboxMap mapboxMap) async {
+    if (_addingLayer) {
+      return false;
+    }
+    _addingLayer = true;
     await _addImage(mapboxMap);
     final sourceCreateSuccess = await _addSource(mapboxMap);
     if (!sourceCreateSuccess) {
+      _addingLayer = false;
       return false;
     }
     await _addLayer(mapboxMap);
+    _addingLayer = false;
     return true;
   }
 

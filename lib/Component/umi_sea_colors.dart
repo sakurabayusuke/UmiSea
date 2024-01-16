@@ -27,6 +27,8 @@ class UmiSeaColors {
   static const blue200 = Color(0xFFA5D8FF);
   static const blue100 = Color(0xFFD0EBFF);
   static const blue000 = Color(0xFFE7E5EE);
+  static const splashTop = Color(0xFF7ac9f6);
+  static const splashBottom = Color(0xFF103b6d);
 
   static const red900 = Color(0xFFC92A2A);
   static const red800 = Color(0xFFE03131);
