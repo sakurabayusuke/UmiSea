@@ -16,9 +16,14 @@ class MapScreenNotifier extends StateNotifier<MapScreenState> {
   }
 
   Future<void> addCoralLayer() async {
+    if (state.coralIsDisplaying) return;
     await coralLayerCreator.create(mapboxMap!);
     state = state.copyWith(coralIsDisplaying: true);
   }
 
-  Future<void> deleteAllCorals() async {}
+  Future<void> deleteAllCorals() async {
+    if (!state.coralIsDisplaying) return;
+    await coralLayerCreator.remove(mapboxMap!);
+    state = state.copyWith(coralIsDisplaying: false);
+  }
 }

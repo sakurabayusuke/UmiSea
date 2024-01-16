@@ -41,6 +41,26 @@ class CoralLayer {
     return true;
   }
 
+  Future<bool> remove(MapboxMap mapboxMap) async {
+    final clusterExist =
+        await mapboxMap.style.styleLayerExists(_clusterLayerName);
+    if (clusterExist) {
+      await mapboxMap.style.removeStyleLayer(_clusterLayerName);
+    }
+    final clusterCountExist =
+        await mapboxMap.style.styleLayerExists(_clusterCountLayerName);
+    if (clusterCountExist) {
+      await mapboxMap.style.removeStyleLayer(_clusterCountLayerName);
+    }
+    final unclusterExist =
+        await mapboxMap.style.styleLayerExists(_unclusterLayerName);
+    if (unclusterExist) {
+      await mapboxMap.style.removeStyleLayer(_unclusterLayerName);
+    }
+
+    return true;
+  }
+
   Future<bool> _addSource(MapboxMap mapboxMap) async {
     final sourceExist = await mapboxMap.style.styleSourceExists(_sourceName);
     if (sourceExist) {
