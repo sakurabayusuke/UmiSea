@@ -44,7 +44,7 @@ class MapScreen extends ConsumerWidget {
               center: Point(
                 coordinates: Position(139.7586677640881, 35.67369269880291),
               ).toJson(),
-              zoom: 14,
+              zoom: 5,
             ),
             styleUri: MapboxStyles.MAPBOX_STREETS,
             onMapCreated: mapNotifier.onMapCreated,
