@@ -5,10 +5,10 @@ import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:umi_sea/Component/icon/icon_png.dart';
 import 'package:umi_sea/map/coral2/coral_repository.dart';
 
-class CoralLayerCreator {
-  static final _creator = CoralLayerCreator._internal();
-  factory CoralLayerCreator() => _creator;
-  CoralLayerCreator._internal();
+class CoralLayer {
+  static final _creator = CoralLayer._internal();
+  factory CoralLayer() => _creator;
+  CoralLayer._internal();
 
   final CoralRepository _coralRepository = CoralRepository();
 

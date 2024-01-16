@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
-import 'package:umi_sea/map/main_map/coral_layer_creator.dart';
+import 'package:umi_sea/map/coral2/coral_layer.dart';
 import 'package:umi_sea/map/main_map/map_screen_state.dart';
 
 class MapScreenNotifier extends StateNotifier<MapScreenState> {
@@ -8,7 +8,7 @@ class MapScreenNotifier extends StateNotifier<MapScreenState> {
       : super(
             const MapScreenState(initialized: false, coralIsDisplaying: false));
   late final MapboxMap? mapboxMap;
-  final CoralLayerCreator coralLayerCreator;
+  final CoralLayer coralLayerCreator;
 
   void onMapCreated(MapboxMap mapboxMap) async {
     this.mapboxMap = mapboxMap;
