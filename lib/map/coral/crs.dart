@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:umi_sea/map/coral2/crs_properties.dart';
+import 'package:umi_sea/map/coral/crs_properties.dart';
 
 part 'crs.freezed.dart';
 part 'crs.g.dart';

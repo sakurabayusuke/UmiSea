@@ -1,8 +1,8 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:umi_sea/map/coral2/feature_properties.dart';
-import 'package:umi_sea/map/coral2/geometry.dart';
+import 'package:umi_sea/map/coral/feature_properties.dart';
+import 'package:umi_sea/map/coral/geometry.dart';
 
 part 'feature.freezed.dart';
 part 'feature.g.dart';

@@ -1,26 +1,14 @@
-import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
-
 class MapScreenState {
-  MapScreenState({
-    this.mapboxMap,
-    this.pointAnnotationManager,
-    required this.coralsPoint,
-  });
+  const MapScreenState(
+      {required this.initialized, required this.coralIsDisplaying});
 
-  late final MapboxMap? mapboxMap;
-  late final PointAnnotationManager? pointAnnotationManager;
-  final List<PointAnnotation?> coralsPoint;
+  final bool initialized;
+  final bool coralIsDisplaying;
 
-  MapScreenState copyWith({
-    MapboxMap? mapboxMap,
-    PointAnnotationManager? pointAnnotationManager,
-    List<PointAnnotation?>? coralsPoint,
-  }) {
+  MapScreenState copyWith({bool? initialized, bool? coralIsDisplaying}) {
     return MapScreenState(
-      mapboxMap: mapboxMap ?? this.mapboxMap,
-      pointAnnotationManager:
-          pointAnnotationManager ?? this.pointAnnotationManager,
-      coralsPoint: coralsPoint ?? this.coralsPoint,
+      initialized: initialized ?? this.initialized,
+      coralIsDisplaying: coralIsDisplaying ?? this.coralIsDisplaying,
     );
   }
 }

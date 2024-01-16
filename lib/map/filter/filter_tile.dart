@@ -25,8 +25,8 @@ class FilterTile extends ConsumerWidget {
           icon: SvgPicture.asset(
             umi_icon.Icon.coral.path,
             semanticsLabel: umi_icon.Icon.coral.name,
-            width: 58,
-            height: 58,
+            width: 56,
+            height: 56,
             colorFilter: ColorFilter.mode(
                 isSelected
                     ? UmiSeaColors.blue400
