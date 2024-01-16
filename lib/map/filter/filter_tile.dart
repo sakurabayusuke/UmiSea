@@ -14,7 +14,7 @@ class FilterTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isSelected = ref.watch(filterSheetNotifierProvider)[filter]!;
+    final isSelected = ref.watch(filterSheetNotifierProvider).filters[filter]!;
     final provider = ref.watch(filterSheetNotifierProvider.notifier);
     return Column(
       children: [
