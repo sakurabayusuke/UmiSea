@@ -25,17 +25,11 @@ class CoralLayer {
   static const String _unclusterLayerPath =
       "assets/coral_cluster/uncluster_layer.json";
 
-  static const String _coralIconBaseName = "coral_icon_";
-  static const List<String> _coralIconNames = [
-    "${_coralIconBaseName}large",
-    "${_coralIconBaseName}middle",
-    "${_coralIconBaseName}small",
-  ];
-  static const List<int> _coralIconSizes = [56, 40, 24];
+  static const String _coralIconName = "coral_icon";
   static const String _coralMarkerIconName = "coral_marker_icon";
-  static const double _baseScale = 1.0;
-  static const int _coralMarkerHeight = 46;
-  static const int _coralMarkerWidth = 31;
+
+  /// アイコンの幅と高さ。必須だがどんなサイズを入れても、変化が見られない
+  static const int _iconWidthAndHeight = 0;
 
   Future<bool> create(MapboxMap mapboxMap) async {
     await _addImage(mapboxMap);
@@ -66,20 +60,17 @@ class CoralLayer {
   }
 
   Future<void> _addImage(MapboxMap mapboxMap) async {
-    for (var i = 0; i < _coralIconNames.length; i++) {
-      final coral = await mapboxMap.style.getStyleImage(_coralIconNames[i]);
-      if (coral != null) continue;
-
+    final coral = await mapboxMap.style.getStyleImage(_coralIconName);
+    if (coral == null) {
       final bytes = await rootBundle.load(IconPng.coral.path);
       final converted = bytes.buffer.asUint8List();
       await mapboxMap.style.addStyleImage(
-          _coralIconNames[i],
+          _coralIconName,
           7,
           MbxImage(
-            width: _coralIconSizes[i],
-            height: _coralIconSizes[i],
-            data: converted,
-          ),
+              width: _iconWidthAndHeight,
+              height: _iconWidthAndHeight,
+              data: converted),
           false,
           [],
           [],
@@ -96,8 +87,8 @@ class CoralLayer {
       _coralMarkerIconName,
       3,
       MbxImage(
-        width: _coralMarkerWidth,
-        height: _coralMarkerHeight,
+        width: _iconWidthAndHeight,
+        height: _iconWidthAndHeight,
         data: converted,
       ),
       false,
