@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
-import 'package:umi_sea/map/coral2/coral_layer.dart';
+import 'package:umi_sea/map/coral/coral_layer.dart';
 import 'package:umi_sea/map/main_map/map_screen_state.dart';
 
 class MapScreenNotifier extends StateNotifier<MapScreenState> {

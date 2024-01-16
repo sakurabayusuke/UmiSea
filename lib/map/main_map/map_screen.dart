@@ -6,7 +6,7 @@ import 'package:umi_sea/env/env.dart';
 import 'package:umi_sea/Component/buttons/icon_button.dart' as atom;
 import 'package:umi_sea/Component/icon/icon.dart' as atom;
 import 'package:umi_sea/map/filter/filter.dart';
-import 'package:umi_sea/map/coral2/coral_layer.dart';
+import 'package:umi_sea/map/coral/coral_layer.dart';
 import 'package:umi_sea/map/main_map/map_screen_notifier.dart';
 import 'package:umi_sea/map/main_map/map_screen_state.dart';
 

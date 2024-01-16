@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:umi_sea/Component/icon/icon_png.dart';
-import 'package:umi_sea/map/coral2/coral_repository.dart';
+import 'package:umi_sea/map/coral/coral_repository.dart';
 
 class CoralLayer {
   static final _creator = CoralLayer._internal();
