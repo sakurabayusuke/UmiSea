@@ -25,6 +25,7 @@
             16
         ],
         "text-anchor": "top",
+        "text-allow-overlap": true,
         "text-offset": [
             "step",
             [
@@ -80,6 +81,7 @@
                 7
             ]
         ],
+        "icon-allow-overlap": true,
         "icon-anchor": "bottom"
     }
 }
