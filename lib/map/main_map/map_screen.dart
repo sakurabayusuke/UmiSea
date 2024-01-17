@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart' as map;
+import 'package:umi_sea/Component/buttons/button_color.dart';
 import 'package:umi_sea/Map/filter/filter_sheet.dart';
 import 'package:umi_sea/env/env.dart';
 import 'package:umi_sea/Component/buttons/icon_button.dart' as atom;
@@ -9,6 +10,7 @@ import 'package:umi_sea/map/filter/filter.dart';
 import 'package:umi_sea/map/coral/coral_layer.dart';
 import 'package:umi_sea/map/main_map/map_screen_notifier.dart';
 import 'package:umi_sea/map/main_map/map_screen_state.dart';
+import 'package:umi_sea/setting/setting_list_screen.dart';
 import 'package:umi_sea/splash_screen.dart';
 
 final mapScreenNotifierProvider =
@@ -58,6 +60,39 @@ class MapScreen extends ConsumerWidget {
               icon: atom.Icon.filter,
               onPressed:
                   filterState.isAnimating ? () {} : filterNotifier.display,
+            ),
+          ),
+          Positioned(
+            top: 160,
+            right: 24,
+            child: atom.IconButton(
+              icon: atom.Icon.settings,
+              buttonColor: ButtonColor.secondary,
+              onPressed: () {
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) {
+                      return const SettingListScreen();
+                    },
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      const begin = Offset(1, 0);
+                      const end = Offset.zero;
+                      final tween = Tween(begin: begin, end: end).chain(
+                        CurveTween(
+                          curve: Curves.easeIn,
+                        ),
+                      );
+                      final animeOffset = animation.drive(tween);
+                      return SlideTransition(
+                          position: animeOffset, child: child);
+                    },
+                    transitionDuration: const Duration(
+                      milliseconds: 200,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
           Visibility(
