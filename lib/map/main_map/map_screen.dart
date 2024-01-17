@@ -13,7 +13,7 @@ import 'package:umi_sea/splash_screen.dart';
 
 final mapScreenNotifierProvider =
     StateNotifierProvider<MapScreenNotifier, MapScreenState>((_) {
-  return MapScreenNotifier(coralLayerCreator: CoralLayer());
+  return MapScreenNotifier(CoralLayer());
 });
 
 class MapScreen extends ConsumerWidget {
