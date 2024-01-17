@@ -10,7 +10,7 @@ class IconButton extends material.StatelessWidget {
   final atoms.Icon icon;
   final IconSize iconSize;
   final ButtonColor buttonColor;
-  final bool hasBorder;
+  final bool onlyIcon;
   final Function() onPressed;
 
   const IconButton({
@@ -19,7 +19,7 @@ class IconButton extends material.StatelessWidget {
     required this.onPressed,
     this.iconSize = IconSize.middle,
     this.buttonColor = ButtonColor.primary,
-    this.hasBorder = true,
+    this.onlyIcon = false,
   });
 
   @override
@@ -29,14 +29,16 @@ class IconButton extends material.StatelessWidget {
     return material.Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        boxShadow: [
-          material.BoxShadow(
-            color: UmiSeaColors.blue900.withOpacity(0.5),
-            spreadRadius: 1,
-            blurRadius: 4,
-            offset: const Offset(4, 4),
-          ),
-        ],
+        boxShadow: onlyIcon
+            ? null
+            : [
+                material.BoxShadow(
+                  color: UmiSeaColors.blue900.withOpacity(0.5),
+                  spreadRadius: 1,
+                  blurRadius: 4,
+                  offset: const Offset(4, 4),
+                ),
+              ],
       ),
       child: material.SizedBox(
         height: 48.0,
@@ -50,10 +52,13 @@ class IconButton extends material.StatelessWidget {
           onPressed: onPressed,
           style: material.IconButton.styleFrom(
             foregroundColor: colorScheme.onPrimary,
-            backgroundColor: buttonColor.color,
-            side: BorderSide(
-              color: colorScheme.outline,
-            ),
+            backgroundColor: onlyIcon ? null : buttonColor.color,
+            side: onlyIcon
+                ? null
+                : BorderSide(
+                    color: colorScheme.outline,
+                    width: 0.7,
+                  ),
           ),
           iconSize: iconSize.size,
         ),
