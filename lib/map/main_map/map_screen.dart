@@ -70,7 +70,7 @@ class MapScreen extends ConsumerWidget {
               child: const SplashScreen(),
             ),
           ),
-          FilterSheet(),
+          const FilterSheet(),
         ],
       ),
     );
