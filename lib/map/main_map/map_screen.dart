@@ -23,6 +23,7 @@ class MapScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final mapNotifier = ref.watch(mapScreenNotifierProvider.notifier);
     final filterState = ref.watch(filterSheetNotifierProvider);
+    final filterNotifier = ref.watch(filterSheetNotifierProvider.notifier);
     final mapState = ref.watch(mapScreenNotifierProvider);
 
     if (mapState.initialized) {
@@ -55,7 +56,8 @@ class MapScreen extends ConsumerWidget {
             right: 24,
             child: atom.IconButton(
               icon: atom.Icon.filter,
-              onPressed: mapNotifier.showBottomSheet,
+              onPressed:
+                  filterState.isAnimating ? () {} : filterNotifier.display,
             ),
           ),
           Visibility(
@@ -68,10 +70,7 @@ class MapScreen extends ConsumerWidget {
               child: const SplashScreen(),
             ),
           ),
-          Visibility(
-            visible: mapState.bottomSheetIsVisible,
-            child: FilterSheet(),
-          )
+          FilterSheet(),
         ],
       ),
     );

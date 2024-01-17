@@ -9,7 +9,6 @@ class MapScreenNotifier extends StateNotifier<MapScreenState> {
           initialized: false,
           coralIsDisplaying: false,
           splashIsEnd: false,
-          bottomSheetIsVisible: false,
         ));
   late final MapboxMap? mapboxMap;
   final CoralLayer coralLayerCreator;
@@ -35,9 +34,4 @@ class MapScreenNotifier extends StateNotifier<MapScreenState> {
   void removeSplash() {
     state = state.copyWith(splashIsEnd: true);
   }
-
-  void showBottomSheet() => state = state.copyWith(bottomSheetIsVisible: true);
-
-  void removeBottomSheet() =>
-      state = state.copyWith(bottomSheetIsVisible: false);
 }
