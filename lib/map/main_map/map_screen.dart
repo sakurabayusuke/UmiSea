@@ -54,7 +54,7 @@ class MapScreen extends ConsumerWidget {
             onMapCreated: mapNotifier.onMapCreated,
           ),
           Positioned(
-            bottom: 160,
+            bottom: 80,
             right: 24,
             child: atom.IconButton(
               icon: atom.Icon.filter,
@@ -63,7 +63,7 @@ class MapScreen extends ConsumerWidget {
             ),
           ),
           Positioned(
-            top: 160,
+            top: 80,
             right: 24,
             child: atom.IconButton(
               icon: atom.Icon.settings,
