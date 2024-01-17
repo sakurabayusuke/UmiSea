@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:umi_sea/map/filter/filter.dart';
+import 'package:umi_sea/Component/umi_sea_colors.dart';
 import 'package:umi_sea/map/filter/filter_repository.dart';
 import 'package:umi_sea/map/filter/filter_sheet_notifier.dart';
+import 'package:umi_sea/map/filter/filter_sheet_state.dart';
 import 'package:umi_sea/map/filter/filter_tile.dart';
 
 final filterSheetNotifierProvider =
-    StateNotifierProvider<FilterSheetNotifier, Map<Filter, bool>>((_) {
-  var filterRepository = FilterRepository();
-  return FilterSheetNotifier(filterRepository.getFilter);
+    StateNotifierProvider<FilterSheetNotifier, FilterSheetState>((_) {
+  return FilterSheetNotifier(FilterRepository(),
+      scrollableController: DraggableScrollableController());
 });
 
 class FilterSheet extends ConsumerWidget {
@@ -17,17 +18,64 @@ class FilterSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var list = <Widget>[];
-    var filters = ref.watch(filterSheetNotifierProvider);
-    for (var filter in filters.keys) {
+    var filterState = ref.watch(filterSheetNotifierProvider);
+    var filterNotifier = ref.watch(filterSheetNotifierProvider.notifier);
+    for (var filter in filterState.filters.keys) {
       list.add(FilterTile(filter: filter));
     }
 
-    return SizedBox(
-      height: MediaQuery.sizeOf(context).height * 0.45,
-      child: GridView.count(
-        crossAxisCount: 4,
-        children: list,
-      ),
+    return DraggableScrollableSheet(
+      minChildSize: 0,
+      initialChildSize: 0,
+      maxChildSize: 0.9,
+      controller: filterNotifier.scrollableController,
+      builder: (context, scrollController) {
+        return Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: UmiSeaColors.gray000),
+          child: Stack(
+            children: [
+              GridView.count(
+                controller: scrollController,
+                crossAxisCount: 4,
+                children: list,
+              ),
+              GestureDetector(
+                onVerticalDragUpdate: (details) {
+                  final pixel = filterNotifier.scrollableController.pixels -
+                      details.delta.dy;
+                  final size =
+                      filterNotifier.scrollableController.pixelsToSize(pixel);
+                  filterNotifier.scrollableController.jumpTo(size);
+                },
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Column(
+                    children: [
+                      const Flexible(
+                        child: SizedBox(
+                          height: 10,
+                        ),
+                      ),
+                      Flexible(
+                        child: Container(
+                          width: 100,
+                          height: 7,
+                          decoration: BoxDecoration(
+                            color: UmiSeaColors.gray300,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
