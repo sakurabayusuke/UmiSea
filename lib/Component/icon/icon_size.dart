@@ -1,6 +1,8 @@
 enum IconSize {
-  middle(size: 20),
-  large(size: 30),
+  small(size: 20),
+  middle(size: 24),
+  large(size: 28),
+  extraLarge(size: 32),
   splash(size: 128);
 
   final double size;
