@@ -36,6 +36,13 @@ class HeaderTypography {
   static final middleBold =
       HeaderTypography.middle.copyWith(fontWeight: FontWeight.bold);
 
+  /// fontSize:20
+  static final semiMiddle = _font.copyWith(fontSize: 20);
+
+  /// fontSize:20 bold
+  static final semiMiddleBold =
+      HeaderTypography.semiMiddle.copyWith(fontWeight: FontWeight.bold);
+
   /// fontSize:18
   static final small = _font.copyWith(fontSize: 18);
 
