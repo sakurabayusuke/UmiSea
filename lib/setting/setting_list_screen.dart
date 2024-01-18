@@ -7,19 +7,14 @@ import 'package:umi_sea/Component/buttons/icon_button.dart'
     as umi_sea_component;
 import 'package:umi_sea/Component/icon/icon.dart' as umi_sea_icon;
 import 'package:umi_sea/Component/icon/icon_widget.dart' as atom;
+import 'package:umi_sea/setting/setting_enum.dart';
+import 'package:umi_sea/setting/setting_navigator.dart';
 
 class SettingListScreen extends StatelessWidget {
   const SettingListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final titles = [
-      "サブスクリプション",
-      "利用規約",
-      "ライセンス表示",
-      "データ出典",
-    ];
-
     return Scaffold(
       appBar: AppBar(
         leading: umi_sea_component.IconButton(
@@ -35,22 +30,45 @@ class SettingListScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          for (final title in titles) _menuItem(title),
+          for (final setting in SettingEnum.values) _menuItem(setting, context),
         ],
       ),
     );
   }
 }
 
-Widget _menuItem(String title) {
+Widget _menuItem(SettingEnum setting, BuildContext context) {
   return GestureDetector(
+    onTap: () {
+      Navigator.of(context).push(
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) {
+            return SettingNavigator().getScreen(setting);
+          },
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(1, 0);
+            const end = Offset.zero;
+            final tween = Tween(begin: begin, end: end).chain(
+              CurveTween(
+                curve: Curves.easeIn,
+              ),
+            );
+            final animeOffset = animation.drive(tween);
+            return SlideTransition(position: animeOffset, child: child);
+          },
+          transitionDuration: const Duration(
+            milliseconds: 200,
+          ),
+        ),
+      );
+    },
     child: Container(
       padding: const EdgeInsets.all(20),
       child: Row(
         children: [
           Expanded(
             child: Text(
-              title,
+              setting.displayName,
               style: BodyTypography.extraLarge,
             ),
           ),
