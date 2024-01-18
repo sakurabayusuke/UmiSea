@@ -1,5 +1,4 @@
 enum SettingEnum {
-  aboutThisService(displayName: "このサービスについて"),
   subScription(displayName: "サブスクリプション"),
   termOfService(displayName: "利用規約"),
   license(displayName: "ライセンス"),
