@@ -36,6 +36,7 @@ class LicenseListScreen extends StatelessWidget {
                 content: license.content,
               ),
               title: license.title,
+              shouldDisplayEnglish: true,
             ),
         ],
       ),
