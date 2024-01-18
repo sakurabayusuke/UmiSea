@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:umi_sea/Component/icon/icon_size.dart';
 import 'package:umi_sea/Component/typography/body_typography.dart';
 import 'package:umi_sea/Component/typography/header_typography.dart';
@@ -29,15 +30,17 @@ class LicenseScreen extends StatelessWidget {
         ),
         backgroundColor: UmiSeaColors.blue400,
         title: Text(title),
-        titleTextStyle:
-            HeaderTypography.middle.copyWith(color: UmiSeaColors.gray900),
+        titleTextStyle: HeaderTypography.middle
+            .copyWith(color: UmiSeaColors.gray900)
+            .copyWith(fontFamily: GoogleFonts.istokWeb().fontFamily),
       ),
       body: Container(
         padding: const EdgeInsets.all(24),
         child: SingleChildScrollView(
           child: Text(
             content,
-            style: BodyTypography.middle,
+            style: BodyTypography.middle
+                .copyWith(fontFamily: GoogleFonts.istokWeb().fontFamily),
           ),
         ),
       ),

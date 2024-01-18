@@ -33,6 +33,7 @@ class SettingListScreen extends StatelessWidget {
             ScreenTransitionItem(
               nextWidget: SettingNavigator().getScreen(setting),
               title: setting.displayName,
+              shouldDisplayEnglish: false,
             ),
         ],
       ),
