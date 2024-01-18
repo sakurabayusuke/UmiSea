@@ -15,6 +15,7 @@ class MapScreenNotifier extends StateNotifier<MapScreenState> {
 
   void onMapCreated(MapboxMap mapboxMap) async {
     _mapboxMap = mapboxMap;
+    mapboxMap.style.localizeLabels("ja", null);
 
     // スプラッシュスクリーンを表示させておくための処理
     await Future.delayed(const Duration(milliseconds: 1500));
