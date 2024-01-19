@@ -6,7 +6,6 @@ import 'package:umi_sea/env/env.dart';
 import 'package:http/http.dart' as http;
 import 'package:umi_sea/infrastructure/exception/network_exception.dart';
 import 'package:umi_sea/infrastructure/exception/server_error_exception.dart';
-import 'package:umi_sea/map/coral/geo_root.dart';
 
 class CoralRepository {
   CoralRepository()
