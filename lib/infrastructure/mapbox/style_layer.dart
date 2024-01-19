@@ -31,6 +31,11 @@ class StyleLayer {
   Future<void> remove(MapboxMap mapboxMap, String layerName) async {
     final exist = await mapboxMap.style.styleLayerExists(layerName);
     if (!exist) return;
-    await mapboxMap.style.removeStyleLayer(layerName);
+    try {
+      await mapboxMap.style.removeStyleLayer(layerName);
+    } on PlatformException catch (e, s) {
+      logger.e("${LoggerStateEnum.exception}:$layerName 削除中に例外}",
+          error: e, stackTrace: s);
+    }
   }
 }
