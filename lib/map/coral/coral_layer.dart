@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:umi_sea/Component/icon/icon_png.dart';
+import 'package:umi_sea/infrastructure/exception/network_exception.dart';
 import 'package:umi_sea/infrastructure/exception/server_error_exception.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
 import 'package:umi_sea/infrastructure/mapbox/style_image.dart';
@@ -76,18 +77,7 @@ class CoralLayer {
           mapboxMap, _clusterCountLayer.name, _clusterCountLayer.path);
       await _styleLayer.add(
           mapboxMap, _unclusterLayer.name, _unclusterLayer.path);
-    } on TimeoutException catch (e, s) {
-      logger.e("${LoggerStateEnum.exception}:サーバーから応答がない",
-          error: e, stackTrace: s);
-      rethrow;
-    } on ServerErrorException catch (e, s) {
-      logger.e("${LoggerStateEnum.exception}:サーバーになんらかの異常が発生",
-          error: e, stackTrace: s);
-      rethrow;
-    } on Exception catch (e, s) {
-      logger.e("${LoggerStateEnum.exception}:レイヤー追加中になんらかの例外が発生",
-          error: e, stackTrace: s);
-      remove(mapboxMap);
+    } on Exception {
       rethrow;
     } finally {
       _addingLayer = false;
