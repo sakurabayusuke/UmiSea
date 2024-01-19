@@ -1,17 +1,30 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:umi_sea/map/coral/coral_layer.dart';
 import 'package:umi_sea/map/main_map/map_screen_state.dart';
 
-class MapScreenNotifier extends StateNotifier<MapScreenState> {
-  MapScreenNotifier(this._coralLayerCreator)
-      : super(const MapScreenState(
-          initialized: false,
-          coralIsDisplaying: false,
-          splashIsEnd: false,
-        ));
+part 'map_screen_notifier.g.dart';
+
+@riverpod
+class MapScreenNotifier extends _$MapScreenNotifier {
+  MapScreenNotifier() : this.forTesting(coralLayer: CoralLayer());
+
+  MapScreenNotifier.forTesting({required coralLayer})
+      : _coralLayer = coralLayer;
+
+  @override
+  MapScreenState build() => const MapScreenState(
+        initialized: false,
+        splashIsEnd: false,
+      );
+  // MapScreenNotifier(this._coralLayer)
+  //     : super(const MapScreenState(
+  //         initialized: false,
+  //         coralIsDisplaying: false,
+  //         splashIsEnd: false,
+  //       ));
   late final MapboxMap? _mapboxMap;
-  final CoralLayer _coralLayerCreator;
+  final CoralLayer _coralLayer;
 
   void onMapCreated(MapboxMap mapboxMap) async {
     _mapboxMap = mapboxMap;
@@ -23,15 +36,11 @@ class MapScreenNotifier extends StateNotifier<MapScreenState> {
   }
 
   Future<void> addCoralLayer() async {
-    if (state.coralIsDisplaying) return;
-    await _coralLayerCreator.create(_mapboxMap!);
-    state = state.copyWith(coralIsDisplaying: true);
+    await _coralLayer.create(_mapboxMap!);
   }
 
   Future<void> deleteAllCorals() async {
-    if (!state.coralIsDisplaying) return;
-    await _coralLayerCreator.remove(_mapboxMap!);
-    state = state.copyWith(coralIsDisplaying: false);
+    await _coralLayer.remove(_mapboxMap!);
   }
 
   void removeSplash() {
