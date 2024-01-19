@@ -1,5 +1,5 @@
 import 'package:umi_sea/map/filter/filter.dart';
-import 'package:umi_sea/Repository/shared_preference_repository.dart';
+import 'package:umi_sea/infrastructure/repository/shared_preference_repository.dart';
 
 class FilterRepository {
   static final _repository = FilterRepository._internal();
