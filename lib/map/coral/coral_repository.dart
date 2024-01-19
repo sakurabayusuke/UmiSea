@@ -6,6 +6,8 @@ import 'package:umi_sea/env/env.dart';
 import 'package:http/http.dart' as http;
 import 'package:umi_sea/infrastructure/exception/network_exception.dart';
 import 'package:umi_sea/infrastructure/exception/server_error_exception.dart';
+import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
+import 'package:umi_sea/main.dart';
 
 class CoralRepository {
   CoralRepository()
@@ -31,15 +33,19 @@ class CoralRepository {
     }
     final networkResult = await _connectivity.checkConnectivity();
     if (networkResult == ConnectivityResult.none) {
+      logger.e("${LoggerStateEnum.exception}:ネットワークに接続されていません。");
       throw NetworkException();
     }
 
     var res = await _http.get(_uri, headers: {"x-api-key": _apiKey});
 
     if (res.statusCode == 500) {
+      logger.e("${LoggerStateEnum.exception}:coral-lambda からの応答がありません。");
       throw TimeoutException("サーバーから応答がありません。");
     }
     if (res.statusCode != 200) {
+      logger.e(
+          "${LoggerStateEnum.exception}:coral-lambda になんらかの異常がありデータが取得できません。");
       throw ServerErrorException();
     }
 

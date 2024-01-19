@@ -59,7 +59,7 @@ class CoralLayer {
 
   Future<void> create(MapboxMap mapboxMap) async {
     if (_addingLayer) {
-      logger.t("$LoggerStateEnum.trace:現在、珊瑚礁レイヤーを追加中です。新規の命令は受け付けられません。");
+      logger.w("${LoggerStateEnum.warning}:現在、珊瑚礁レイヤーを追加中です。新規の命令は受け付けられません。");
       return;
     }
     _addingLayer = true;
@@ -77,13 +77,15 @@ class CoralLayer {
       await _styleLayer.add(
           mapboxMap, _unclusterLayer.name, _unclusterLayer.path);
     } on TimeoutException catch (e, s) {
-      logger.e("$LoggerStateEnum.e:サーバーから応答がない", error: e, stackTrace: s);
+      logger.e("${LoggerStateEnum.exception}:サーバーから応答がない",
+          error: e, stackTrace: s);
       rethrow;
     } on ServerErrorException catch (e, s) {
-      logger.e("$LoggerStateEnum.e:サーバーになんらかの異常が発生", error: e, stackTrace: s);
+      logger.e("${LoggerStateEnum.exception}:サーバーになんらかの異常が発生",
+          error: e, stackTrace: s);
       rethrow;
     } on Exception catch (e, s) {
-      logger.e("$LoggerStateEnum.e:レイヤー追加中になんらかの例外が発生",
+      logger.e("${LoggerStateEnum.exception}:レイヤー追加中になんらかの例外が発生",
           error: e, stackTrace: s);
       remove(mapboxMap);
       rethrow;
@@ -98,7 +100,7 @@ class CoralLayer {
       await _styleLayer.remove(mapboxMap, _clusterLayer.name);
       await _styleLayer.remove(mapboxMap, _unclusterLayer.name);
     } on Exception catch (e, s) {
-      logger.e("$LoggerStateEnum.e:レイヤー追加中になんらかの例外が発生",
+      logger.e("${LoggerStateEnum.exception}:レイヤー追加中になんらかの例外が発生",
           error: e, stackTrace: s);
       rethrow;
     }
