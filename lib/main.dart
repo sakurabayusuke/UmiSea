@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 import 'package:umi_sea/Component/umi_sea_colors.dart';
-import 'package:umi_sea/Repository/shared_preference_repository.dart';
+import 'package:umi_sea/infrastructure/repository/shared_preference_repository.dart';
 import 'package:umi_sea/map/main_map/map_screen.dart';
 
 void main() async {
@@ -14,6 +15,8 @@ void main() async {
     ),
   );
 }
+
+final logger = Logger();
 
 class App extends StatelessWidget {
   const App({super.key});
