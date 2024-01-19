@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:umi_sea/Component/icon/icon_png.dart';
+import 'package:umi_sea/infrastructure/exception/server_error_exception.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
 import 'package:umi_sea/infrastructure/mapbox/style_image.dart';
 import 'package:umi_sea/infrastructure/mapbox/style_layer.dart' as infra_layer;
@@ -72,7 +74,6 @@ class CoralLayer {
       await _styleImage.add(
           _mapboxMap, _coralMarkerIconName, IconPng.coralMarker.path);
 
-      // TODO: 失敗処理を追加
       final geoJson = await _coralRepository.getCoralGeoJson();
       await _styleSource.add(_mapboxMap, _source.name, geoJson!, _source.path);
 
@@ -81,9 +82,16 @@ class CoralLayer {
           _mapboxMap, _clusterCountLayer.name, _clusterCountLayer.path);
       await _styleLayer.add(
           _mapboxMap, _unclusterLayer.name, _unclusterLayer.path);
+    } on TimeoutException catch (e, s) {
+      logger.e("$LoggerStateEnum.e:サーバーから応答がない", error: e, stackTrace: s);
+      rethrow;
+    } on ServerErrorException catch (e, s) {
+      logger.e("$LoggerStateEnum.e:サーバーになんらかの異常が発生", error: e, stackTrace: s);
+      rethrow;
     } on Exception catch (e, s) {
       logger.e("$LoggerStateEnum.e:レイヤー追加中になんらかの例外が発生",
           error: e, stackTrace: s);
+      remove();
       rethrow;
     } finally {
       _addingLayer = false;
