@@ -17,12 +17,7 @@ class MapScreenNotifier extends _$MapScreenNotifier {
         initialized: false,
         splashIsEnd: false,
       );
-  // MapScreenNotifier(this._coralLayer)
-  //     : super(const MapScreenState(
-  //         initialized: false,
-  //         coralIsDisplaying: false,
-  //         splashIsEnd: false,
-  //       ));
+
   late final MapboxMap? _mapboxMap;
   final CoralLayer _coralLayer;
 
