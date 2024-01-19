@@ -26,7 +26,7 @@ class MapScreen extends ConsumerWidget {
       if (filterState.filters[Filter.coral]!) {
         mapNotifier.addCoralLayer();
       } else {
-        mapNotifier.deleteAllCorals();
+        mapNotifier.deleteCoralLayer();
       }
     }
 

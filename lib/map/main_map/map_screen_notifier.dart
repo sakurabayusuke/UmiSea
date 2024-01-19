@@ -21,7 +21,7 @@ class MapScreenNotifier extends _$MapScreenNotifier {
   late final MapboxMap? _mapboxMap;
   final CoralLayer _coralLayer;
 
-  void onMapCreated(MapboxMap mapboxMap) async {
+  Future<void> onMapCreated(MapboxMap mapboxMap) async {
     _mapboxMap = mapboxMap;
     mapboxMap.style.localizeLabels("ja", null);
 
@@ -34,7 +34,7 @@ class MapScreenNotifier extends _$MapScreenNotifier {
     await _coralLayer.create(_mapboxMap!);
   }
 
-  Future<void> deleteAllCorals() async {
+  Future<void> deleteCoralLayer() async {
     await _coralLayer.remove(_mapboxMap!);
   }
 
