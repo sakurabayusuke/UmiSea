@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:umi_sea/Component/umi_sea_colors.dart';
-import 'package:umi_sea/map/filter/filter_repository.dart';
 import 'package:umi_sea/map/filter/filter_sheet_notifier.dart';
-import 'package:umi_sea/map/filter/filter_sheet_state.dart';
 import 'package:umi_sea/map/filter/filter_tile.dart';
-
-final filterSheetNotifierProvider =
-    StateNotifierProvider<FilterSheetNotifier, FilterSheetState>((_) {
-  return FilterSheetNotifier(FilterRepository(),
-      scrollableController: DraggableScrollableController());
-});
 
 class FilterSheet extends ConsumerWidget {
   const FilterSheet({super.key});
