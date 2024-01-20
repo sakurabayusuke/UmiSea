@@ -12,6 +12,7 @@
     "layout": {
         "icon-image": "coral_marker_icon",
         "icon-anchor": "bottom",
+        "icon-size": 1.8,
         "icon-allow-overlap": true
     }
 }

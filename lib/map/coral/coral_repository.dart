@@ -1,43 +1,52 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:umi_sea/env/env.dart';
 import 'package:http/http.dart' as http;
-import 'package:umi_sea/map/coral/geo_root.dart';
+import 'package:umi_sea/infrastructure/exception/network_exception.dart';
+import 'package:umi_sea/infrastructure/exception/server_error_exception.dart';
+import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
+import 'package:umi_sea/main.dart';
 
 class CoralRepository {
-  static final _repository = CoralRepository._internal();
-  factory CoralRepository() => _repository;
-  CoralRepository._internal();
+  CoralRepository()
+      : this.forTesting(
+          http: http.Client(),
+          connectivity: Connectivity(),
+        );
+  CoralRepository.forTesting(
+      {required http.Client http, required Connectivity connectivity})
+      : _http = http,
+        _connectivity = connectivity;
+
+  final http.Client _http;
+  final Connectivity _connectivity;
 
   final Uri _uri = Uri.parse(Env.coralURL);
   final String _apiKey = Env.coralApiKey;
-  GeoRoot? _cache;
   Map<String, dynamic>? _jsonCache;
-
-  Future<GeoRoot?> getCoral() async {
-    if (_cache != null) {
-      return _cache!;
-    }
-    var res = await http.get(_uri, headers: {"x-api-key": _apiKey});
-
-    if (res.statusCode != 200) {
-      return null;
-    }
-
-    final Map<String, dynamic> coralsJson = jsonDecode(res.body);
-    final corals = GeoRoot.fromJson(coralsJson);
-    _cache = corals;
-    return corals;
-  }
 
   Future<Map<String, dynamic>?> getCoralGeoJson() async {
     if (_jsonCache != null) {
       return _jsonCache!;
     }
-    var res = await http.get(_uri, headers: {"x-api-key": _apiKey});
+    final networkResult = await _connectivity.checkConnectivity();
+    if (networkResult == ConnectivityResult.none) {
+      logger.e("${LoggerStateEnum.exception}:ネットワークに接続されていません。");
+      throw NetworkException();
+    }
 
+    var res = await _http.get(_uri, headers: {"x-api-key": _apiKey});
+
+    if (res.statusCode == 500) {
+      logger.e("${LoggerStateEnum.exception}:coral-lambda からの応答がありません。");
+      throw TimeoutException("サーバーから応答がありません。");
+    }
     if (res.statusCode != 200) {
-      return null;
+      logger.e(
+          "${LoggerStateEnum.exception}:coral-lambda になんらかの異常がありデータが取得できません。");
+      throw ServerErrorException();
     }
 
     final Map<String, dynamic> geoJson = jsonDecode(res.body);

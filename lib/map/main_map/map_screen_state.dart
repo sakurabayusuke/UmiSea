@@ -1,23 +1,24 @@
 class MapScreenState {
   const MapScreenState({
     required this.initialized,
-    required this.coralIsDisplaying,
     required this.splashIsEnd,
+    required this.bottomSheetIsAnimating,
   });
 
   final bool initialized;
-  final bool coralIsDisplaying;
   final bool splashIsEnd;
+  final bool bottomSheetIsAnimating;
 
   MapScreenState copyWith({
     bool? initialized,
-    bool? coralIsDisplaying,
     bool? splashIsEnd,
+    bool? bottomSheetIsAnimating,
   }) {
     return MapScreenState(
       initialized: initialized ?? this.initialized,
-      coralIsDisplaying: coralIsDisplaying ?? this.coralIsDisplaying,
       splashIsEnd: splashIsEnd ?? this.splashIsEnd,
+      bottomSheetIsAnimating:
+          bottomSheetIsAnimating ?? this.bottomSheetIsAnimating,
     );
   }
 }

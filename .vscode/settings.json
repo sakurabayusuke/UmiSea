@@ -7,12 +7,14 @@
     "kosugi",
     "latlong",
     "mapbox",
+    "microtask",
     "Offc",
     "prefs",
     "riverpod",
     "Schyler",
     "umishiru",
-    "uncluster"
+    "uncluster",
+    "vsync"
   ],
   "dart.flutterSdkPath": ".fvm/flutter_sdk"
 }

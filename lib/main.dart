@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 import 'package:umi_sea/Component/umi_sea_colors.dart';
-import 'package:umi_sea/Repository/shared_preference_repository.dart';
+import 'package:umi_sea/infrastructure/repository/shared_preference_repository.dart';
 import 'package:umi_sea/map/main_map/map_screen.dart';
+import 'package:umi_sea/snack_bar_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,11 +17,13 @@ void main() async {
   );
 }
 
-class App extends StatelessWidget {
+final logger = Logger();
+
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       title: 'Sea Farlen',
       theme: ThemeData(
@@ -38,7 +42,12 @@ class App extends StatelessWidget {
           onSurface: UmiSeaColors.gray900,
         ),
       ),
-      home: const MapScreen(),
+      home: const Stack(
+        children: [
+          MapScreen(),
+          SnackBarWidget(),
+        ],
+      ),
     );
   }
 }

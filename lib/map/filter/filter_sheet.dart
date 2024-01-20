@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:umi_sea/Component/umi_sea_colors.dart';
-import 'package:umi_sea/map/filter/filter_repository.dart';
 import 'package:umi_sea/map/filter/filter_sheet_notifier.dart';
-import 'package:umi_sea/map/filter/filter_sheet_state.dart';
 import 'package:umi_sea/map/filter/filter_tile.dart';
-
-final filterSheetNotifierProvider =
-    StateNotifierProvider<FilterSheetNotifier, FilterSheetState>((_) {
-  return FilterSheetNotifier(FilterRepository(),
-      scrollableController: DraggableScrollableController());
-});
+import 'package:umi_sea/map/main_map/layer_notifier.dart';
 
 class FilterSheet extends ConsumerWidget {
-  const FilterSheet({super.key});
+  const FilterSheet(DraggableScrollableController controller, {super.key})
+      : _controller = controller;
+
+  final DraggableScrollableController _controller;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var list = <Widget>[];
-    var filterState = ref.watch(filterSheetNotifierProvider);
-    var filterNotifier = ref.watch(filterSheetNotifierProvider.notifier);
+    final list = <Widget>[];
+    final filterState = ref.watch(filterSheetNotifierProvider);
+    final layerState = ref.watch(layerNotifierProvider);
     for (var filter in filterState.filters.keys) {
       list.add(FilterTile(filter: filter));
     }
@@ -28,7 +24,7 @@ class FilterSheet extends ConsumerWidget {
       minChildSize: 0,
       initialChildSize: 0,
       maxChildSize: 0.9,
-      controller: filterNotifier.scrollableController,
+      controller: _controller,
       builder: (context, scrollController) {
         return Container(
           decoration: BoxDecoration(
@@ -43,11 +39,9 @@ class FilterSheet extends ConsumerWidget {
               ),
               GestureDetector(
                 onVerticalDragUpdate: (details) {
-                  final pixel = filterNotifier.scrollableController.pixels -
-                      details.delta.dy;
-                  final size =
-                      filterNotifier.scrollableController.pixelsToSize(pixel);
-                  filterNotifier.scrollableController.jumpTo(size);
+                  final pixel = _controller.pixels - details.delta.dy;
+                  final size = _controller.pixelsToSize(pixel);
+                  _controller.jumpTo(size);
                 },
                 child: Align(
                   alignment: Alignment.topCenter,
@@ -72,6 +66,15 @@ class FilterSheet extends ConsumerWidget {
                   ),
                 ),
               ),
+              switch (layerState) {
+                AsyncLoading() => Container(
+                    color: UmiSeaColors.loadingGray200,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                _ => const SizedBox.shrink(),
+              }
             ],
           ),
         );

@@ -19,10 +19,12 @@ class SharedPreferenceRepository {
   String? getString(String param) => _prefs.getString(param);
   List<String>? getStringList(String param) => _prefs.getStringList(param);
 
-  setInt(String param, int value) => _prefs.setInt(param, value);
-  setBool(String param, bool value) => _prefs.setBool(param, value);
-  setDouble(String param, double value) => _prefs.setDouble(param, value);
-  setString(String param, String value) => _prefs.setString(param, value);
-  setStringList(String param, List<String> value) =>
-      _prefs.setStringList(param, value);
+  setInt(String param, int value) async => await _prefs.setInt(param, value);
+  setBool(String param, bool value) async => await _prefs.setBool(param, value);
+  setDouble(String param, double value) async =>
+      await _prefs.setDouble(param, value);
+  setString(String param, String value) async =>
+      await _prefs.setString(param, value);
+  setStringList(String param, List<String> value) async =>
+      await _prefs.setStringList(param, value);
 }

@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:umi_sea/Component/typography/label_typography.dart';
 import 'package:umi_sea/Component/umi_sea_colors.dart';
-import 'package:umi_sea/Map/filter/filter_sheet.dart';
 import 'package:umi_sea/map/filter/filter.dart';
 import 'package:umi_sea/Component/icon/icon.dart' as umi_icon;
+import 'package:umi_sea/map/filter/filter_sheet_notifier.dart';
 
 class FilterTile extends ConsumerWidget {
   const FilterTile({super.key, required this.filter});
@@ -15,12 +15,16 @@ class FilterTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isSelected = ref.watch(filterSheetNotifierProvider).filters[filter]!;
-    final provider = ref.watch(filterSheetNotifierProvider.notifier);
+    final notifier = ref.watch(filterSheetNotifierProvider.notifier);
     return Column(
       children: [
         IconButton(
           onPressed: () {
-            provider.toggle(filter);
+            if (isSelected) {
+              notifier.removeCoralLayer(filter);
+            } else {
+              notifier.addCoralLayer(filter);
+            }
           },
           icon: SvgPicture.asset(
             umi_icon.Icon.coral.path,

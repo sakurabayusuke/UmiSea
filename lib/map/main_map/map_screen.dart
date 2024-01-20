@@ -6,35 +6,20 @@ import 'package:umi_sea/Map/filter/filter_sheet.dart';
 import 'package:umi_sea/env/env.dart';
 import 'package:umi_sea/Component/buttons/icon_button.dart' as atom;
 import 'package:umi_sea/Component/icon/icon.dart' as atom;
-import 'package:umi_sea/map/filter/filter.dart';
-import 'package:umi_sea/map/coral/coral_layer.dart';
 import 'package:umi_sea/map/main_map/map_screen_notifier.dart';
-import 'package:umi_sea/map/main_map/map_screen_state.dart';
 import 'package:umi_sea/setting/setting_list_screen.dart';
 import 'package:umi_sea/splash_screen.dart';
-
-final mapScreenNotifierProvider =
-    StateNotifierProvider<MapScreenNotifier, MapScreenState>((_) {
-  return MapScreenNotifier(CoralLayer());
-});
 
 class MapScreen extends ConsumerWidget {
   const MapScreen({super.key});
 
+  static final DraggableScrollableController _sheetController =
+      DraggableScrollableController();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mapNotifier = ref.watch(mapScreenNotifierProvider.notifier);
-    final filterState = ref.watch(filterSheetNotifierProvider);
-    final filterNotifier = ref.watch(filterSheetNotifierProvider.notifier);
     final mapState = ref.watch(mapScreenNotifierProvider);
-
-    if (mapState.initialized) {
-      if (filterState.filters[Filter.coral]!) {
-        mapNotifier.addCoralLayer();
-      } else {
-        mapNotifier.deleteAllCorals();
-      }
-    }
 
     return Scaffold(
       body: Stack(
@@ -58,8 +43,14 @@ class MapScreen extends ConsumerWidget {
             right: 24,
             child: atom.IconButton(
               icon: atom.Icon.filter,
-              onPressed:
-                  filterState.isAnimating ? () {} : filterNotifier.display,
+              onPressed: () async {
+                if (mapState.bottomSheetIsAnimating) return;
+                mapNotifier.activateSheetAnimation();
+                await _sheetController.animateTo(0.45,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeIn);
+                mapNotifier.deactivateSheetAnimation();
+              },
             ),
           ),
           Positioned(
@@ -105,7 +96,7 @@ class MapScreen extends ConsumerWidget {
               child: const SplashScreen(),
             ),
           ),
-          const FilterSheet(),
+          FilterSheet(_sheetController),
         ],
       ),
     );
