@@ -58,24 +58,22 @@ class ScreenTransitionItem extends StatelessWidget {
             ),
           ),
         ),
-        child: Expanded(
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  title,
-                  style: shouldDisplayEnglish
-                      ? BodyTypography.extraLarge.copyWith(
-                          fontFamily: GoogleFonts.istokWeb().fontFamily)
-                      : BodyTypography.extraLarge,
-                ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                title,
+                style: shouldDisplayEnglish
+                    ? BodyTypography.extraLarge
+                        .copyWith(fontFamily: GoogleFonts.istokWeb().fontFamily)
+                    : BodyTypography.extraLarge,
               ),
-              const atom.Icon(
-                icon: icon_enum.Icon.go,
-                iconSize: IconSize.small,
-              )
-            ],
-          ),
+            ),
+            const atom.Icon(
+              icon: icon_enum.Icon.go,
+              iconSize: IconSize.small,
+            )
+          ],
         ),
       ),
     );
