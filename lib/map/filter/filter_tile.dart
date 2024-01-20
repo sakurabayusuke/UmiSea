@@ -15,12 +15,16 @@ class FilterTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isSelected = ref.watch(filterSheetNotifierProvider).filters[filter]!;
-    final provider = ref.watch(filterSheetNotifierProvider.notifier);
+    final notifier = ref.watch(filterSheetNotifierProvider.notifier);
     return Column(
       children: [
         IconButton(
           onPressed: () {
-            provider.toggle(filter);
+            if (isSelected) {
+              notifier.removeCoralLayer(filter);
+            } else {
+              notifier.addCoralLayer(filter);
+            }
           },
           icon: SvgPicture.asset(
             umi_icon.Icon.coral.path,

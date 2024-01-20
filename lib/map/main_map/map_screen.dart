@@ -6,7 +6,7 @@ import 'package:umi_sea/Map/filter/filter_sheet.dart';
 import 'package:umi_sea/env/env.dart';
 import 'package:umi_sea/Component/buttons/icon_button.dart' as atom;
 import 'package:umi_sea/Component/icon/icon.dart' as atom;
-import 'package:umi_sea/map/main_map/async_map_screen_notifier.dart';
+import 'package:umi_sea/map/main_map/map_screen_notifier.dart';
 import 'package:umi_sea/setting/setting_list_screen.dart';
 import 'package:umi_sea/splash_screen.dart';
 
@@ -18,8 +18,8 @@ class MapScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mapNotifier = ref.watch(asyncMapScreenNotifierProvider.notifier);
-    final mapState = ref.watch(asyncMapScreenNotifierProvider);
+    final mapNotifier = ref.watch(mapScreenNotifierProvider.notifier);
+    final mapState = ref.watch(mapScreenNotifierProvider);
 
     return Scaffold(
       body: Stack(
@@ -42,15 +42,16 @@ class MapScreen extends ConsumerWidget {
             bottom: 80,
             right: 24,
             child: atom.IconButton(
-                icon: atom.Icon.filter,
-                onPressed: () async {
-                  if (mapState.value!.bottomSheetIsAnimating) return;
-                  mapNotifier.activateSheetAnimation();
-                  await _sheetController.animateTo(0.45,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeIn);
-                  mapNotifier.deactivateSheetAnimation();
-                }),
+              icon: atom.Icon.filter,
+              onPressed: () async {
+                if (mapState.bottomSheetIsAnimating) return;
+                mapNotifier.activateSheetAnimation();
+                await _sheetController.animateTo(0.45,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeIn);
+                mapNotifier.deactivateSheetAnimation();
+              },
+            ),
           ),
           Positioned(
             top: 80,
@@ -86,11 +87,11 @@ class MapScreen extends ConsumerWidget {
             ),
           ),
           Visibility(
-            visible: !mapState.value!.splashIsEnd,
+            visible: !mapState.splashIsEnd,
             child: AnimatedOpacity(
               curve: Curves.easeOutBack,
               onEnd: mapNotifier.removeSplash,
-              opacity: !mapState.value!.initialized ? 1.0 : 0.0,
+              opacity: !mapState.initialized ? 1.0 : 0.0,
               duration: const Duration(milliseconds: 1500),
               child: const SplashScreen(),
             ),

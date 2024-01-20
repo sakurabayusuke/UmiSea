@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:umi_sea/Component/icon/icon_png.dart';
-import 'package:umi_sea/infrastructure/exception/network_exception.dart';
-import 'package:umi_sea/infrastructure/exception/server_error_exception.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
 import 'package:umi_sea/infrastructure/mapbox/style_image.dart';
 import 'package:umi_sea/infrastructure/mapbox/style_layer.dart' as infra_layer;
@@ -89,9 +87,7 @@ class CoralLayer {
       await _styleLayer.remove(mapboxMap, _clusterCountLayer.name);
       await _styleLayer.remove(mapboxMap, _clusterLayer.name);
       await _styleLayer.remove(mapboxMap, _unclusterLayer.name);
-    } on Exception catch (e, s) {
-      logger.e("${LoggerStateEnum.exception}:レイヤー追加中になんらかの例外が発生",
-          error: e, stackTrace: s);
+    } on Exception {
       rethrow;
     }
   }

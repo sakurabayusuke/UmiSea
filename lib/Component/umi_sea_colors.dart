@@ -13,6 +13,7 @@ class UmiSeaColors {
   static const gray400 = Color(0xFFB1B2B2);
   static const gray300 = Color(0xFFD2D3D3);
   static const gray200 = Color(0xFFEAEAEA);
+  static const loadingGray200 = Color(0x80EAEAEA);
   static const gray100 = Color(0xFFF6F6F6);
   static const gray000 = Color(0xFFFFFFFF);
 

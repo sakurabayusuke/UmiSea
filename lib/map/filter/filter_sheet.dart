@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:umi_sea/Component/umi_sea_colors.dart';
 import 'package:umi_sea/map/filter/filter_sheet_notifier.dart';
 import 'package:umi_sea/map/filter/filter_tile.dart';
-import 'package:umi_sea/map/main_map/async_map_screen_notifier.dart';
-import 'package:umi_sea/map/main_map/map_screen_state.dart';
+import 'package:umi_sea/map/main_map/layer_notifier.dart';
 
 class FilterSheet extends ConsumerWidget {
   const FilterSheet(DraggableScrollableController controller, {super.key})
@@ -16,7 +15,7 @@ class FilterSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final list = <Widget>[];
     final filterState = ref.watch(filterSheetNotifierProvider);
-    final mapState = ref.watch(asyncMapScreenNotifierProvider);
+    final layerState = ref.watch(layerNotifierProvider);
     for (var filter in filterState.filters.keys) {
       list.add(FilterTile(filter: filter));
     }
@@ -67,19 +66,19 @@ class FilterSheet extends ConsumerWidget {
                   ),
                 ),
               ),
-              getA(mapState),
+              switch (layerState) {
+                AsyncLoading() => Container(
+                    color: UmiSeaColors.loadingGray200,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                _ => const SizedBox.shrink(),
+              }
             ],
           ),
         );
       },
     );
   }
-}
-
-Widget getA(AsyncValue<MapScreenState> mapsate) {
-  return switch (mapsate) {
-    AsyncLoading() => const Text("BBB"),
-    AsyncError(:final error) => Text(error.toString()),
-    _ => const Text("DDD"),
-  };
 }
