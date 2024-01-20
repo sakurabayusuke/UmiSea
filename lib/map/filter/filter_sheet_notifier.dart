@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/map/filter/filter.dart';
 import 'package:umi_sea/map/filter/filter_repository.dart';
@@ -12,11 +11,9 @@ class FilterSheetNotifier extends _$FilterSheetNotifier {
   FilterSheetNotifier()
       : this.forTesting(
           repository: FilterRepository(),
-          scrollableController: DraggableScrollableController(),
         );
   FilterSheetNotifier.forTesting({
     required FilterRepository repository,
-    required this.scrollableController,
   }) : _repository = repository;
 
   @override
@@ -25,8 +22,6 @@ class FilterSheetNotifier extends _$FilterSheetNotifier {
 
   final FilterRepository _repository;
 
-  final DraggableScrollableController scrollableController;
-
   void toggle(Filter filter) async {
     state.filters[filter] = !state.filters[filter]!;
     _repository.setFilter(filter, state.filters[filter]!);
@@ -34,12 +29,5 @@ class FilterSheetNotifier extends _$FilterSheetNotifier {
     var a = ref.read(asyncMapScreenNotifierProvider.notifier);
     await a.addCoralLayer();
     // ここで更新？
-  }
-
-  void display() async {
-    state = state.copyWith(isAnimating: true);
-    await scrollableController.animateTo(0.45,
-        duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-    state = state.copyWith(isAnimating: false);
   }
 }

@@ -18,6 +18,7 @@ class AsyncMapScreenNotifier extends _$AsyncMapScreenNotifier {
   FutureOr<MapScreenState> build() => const MapScreenState(
         initialized: false,
         splashIsEnd: false,
+        bottomSheetIsAnimating: false,
       );
 
   late final MapboxMap? _mapboxMap;
@@ -62,8 +63,13 @@ class AsyncMapScreenNotifier extends _$AsyncMapScreenNotifier {
     }
   }
 
+  void activateSheetAnimation() =>
+      state = AsyncData(state.value!.copyWith(bottomSheetIsAnimating: true));
+
+  void deactivateSheetAnimation() =>
+      state = AsyncData(state.value!.copyWith(bottomSheetIsAnimating: false));
+
   void removeSplash() {
-    state = AsyncData(state.value!.copyWith(splashIsEnd: true))
-        .copyWithPrevious(state);
+    state = AsyncData(state.value!.copyWith(splashIsEnd: true));
   }
 }

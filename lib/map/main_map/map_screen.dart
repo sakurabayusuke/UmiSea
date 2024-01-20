@@ -6,7 +6,6 @@ import 'package:umi_sea/Map/filter/filter_sheet.dart';
 import 'package:umi_sea/env/env.dart';
 import 'package:umi_sea/Component/buttons/icon_button.dart' as atom;
 import 'package:umi_sea/Component/icon/icon.dart' as atom;
-import 'package:umi_sea/map/filter/filter_sheet_notifier.dart';
 import 'package:umi_sea/map/main_map/async_map_screen_notifier.dart';
 import 'package:umi_sea/setting/setting_list_screen.dart';
 import 'package:umi_sea/splash_screen.dart';
@@ -14,11 +13,12 @@ import 'package:umi_sea/splash_screen.dart';
 class MapScreen extends ConsumerWidget {
   const MapScreen({super.key});
 
+  static final DraggableScrollableController _sheetController =
+      DraggableScrollableController();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mapNotifier = ref.watch(asyncMapScreenNotifierProvider.notifier);
-    final filterState = ref.watch(filterSheetNotifierProvider);
-    final filterNotifier = ref.watch(filterSheetNotifierProvider.notifier);
     final mapState = ref.watch(asyncMapScreenNotifierProvider);
 
     return Scaffold(
@@ -42,10 +42,15 @@ class MapScreen extends ConsumerWidget {
             bottom: 80,
             right: 24,
             child: atom.IconButton(
-              icon: atom.Icon.filter,
-              onPressed:
-                  filterState.isAnimating ? () {} : filterNotifier.display,
-            ),
+                icon: atom.Icon.filter,
+                onPressed: () async {
+                  if (mapState.value!.bottomSheetIsAnimating) return;
+                  mapNotifier.activateSheetAnimation();
+                  await _sheetController.animateTo(0.45,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeIn);
+                  mapNotifier.deactivateSheetAnimation();
+                }),
           ),
           Positioned(
             top: 80,
@@ -90,7 +95,7 @@ class MapScreen extends ConsumerWidget {
               child: const SplashScreen(),
             ),
           ),
-          const FilterSheet(),
+          FilterSheet(_sheetController),
         ],
       ),
     );

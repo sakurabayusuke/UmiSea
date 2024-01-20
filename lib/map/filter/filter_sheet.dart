@@ -7,13 +7,15 @@ import 'package:umi_sea/map/main_map/async_map_screen_notifier.dart';
 import 'package:umi_sea/map/main_map/map_screen_state.dart';
 
 class FilterSheet extends ConsumerWidget {
-  const FilterSheet({super.key});
+  const FilterSheet(DraggableScrollableController controller, {super.key})
+      : _controller = controller;
+
+  final DraggableScrollableController _controller;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final list = <Widget>[];
     final filterState = ref.watch(filterSheetNotifierProvider);
-    final filterNotifier = ref.watch(filterSheetNotifierProvider.notifier);
     final mapState = ref.watch(asyncMapScreenNotifierProvider);
     for (var filter in filterState.filters.keys) {
       list.add(FilterTile(filter: filter));
@@ -23,7 +25,7 @@ class FilterSheet extends ConsumerWidget {
       minChildSize: 0,
       initialChildSize: 0,
       maxChildSize: 0.9,
-      controller: filterNotifier.scrollableController,
+      controller: _controller,
       builder: (context, scrollController) {
         return Container(
           decoration: BoxDecoration(
@@ -38,11 +40,9 @@ class FilterSheet extends ConsumerWidget {
               ),
               GestureDetector(
                 onVerticalDragUpdate: (details) {
-                  final pixel = filterNotifier.scrollableController.pixels -
-                      details.delta.dy;
-                  final size =
-                      filterNotifier.scrollableController.pixelsToSize(pixel);
-                  filterNotifier.scrollableController.jumpTo(size);
+                  final pixel = _controller.pixels - details.delta.dy;
+                  final size = _controller.pixelsToSize(pixel);
+                  _controller.jumpTo(size);
                 },
                 child: Align(
                   alignment: Alignment.topCenter,
