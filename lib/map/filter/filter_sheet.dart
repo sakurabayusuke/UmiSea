@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:umi_sea/Component/umi_sea_colors.dart';
 import 'package:umi_sea/map/filter/filter_sheet_notifier.dart';
 import 'package:umi_sea/map/filter/filter_tile.dart';
-import 'package:umi_sea/map/main_map/layer_notifier.dart';
+import 'package:umi_sea/map/main_map/layer/layer_notifier.dart';
 
 class FilterSheet extends ConsumerWidget {
   const FilterSheet(DraggableScrollableController controller, {super.key})

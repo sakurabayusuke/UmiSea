@@ -1,12 +1,15 @@
 import 'package:flutter/services.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
 import 'package:umi_sea/main.dart';
 
-class StyleImage {
-  static const _styleImage = StyleImage._internal();
-  factory StyleImage() => _styleImage;
-  const StyleImage._internal();
+part 'style_image.g.dart';
+
+@riverpod
+class StyleImage extends _$StyleImage {
+  @override
+  void build() => {};
 
   Future<void> add(
       MapboxMap mapboxMap, String imageName, String imagePath) async {

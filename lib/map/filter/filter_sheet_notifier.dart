@@ -2,7 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/map/filter/filter.dart';
 import 'package:umi_sea/map/filter/filter_repository.dart';
 import 'package:umi_sea/map/filter/filter_sheet_state.dart';
-import 'package:umi_sea/map/main_map/layer_notifier.dart';
+import 'package:umi_sea/map/main_map/layer/layer_notifier.dart';
 
 part 'filter_sheet_notifier.g.dart';
 

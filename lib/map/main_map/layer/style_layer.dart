@@ -1,12 +1,15 @@
 import 'package:flutter/services.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
 import 'package:umi_sea/main.dart';
 
-class StyleLayer {
-  static const _styleLayer = StyleLayer._internal();
-  factory StyleLayer() => _styleLayer;
-  const StyleLayer._internal();
+part 'style_layer.g.dart';
+
+@riverpod
+class StyleLayer extends _$StyleLayer {
+  @override
+  void build() => {};
 
   Future<void> add(
       MapboxMap mapboxMap, String layerName, String layerPath) async {

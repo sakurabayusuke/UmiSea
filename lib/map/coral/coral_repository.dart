@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/env/env.dart';
 import 'package:http/http.dart' as http;
 import 'package:umi_sea/infrastructure/exception/network_exception.dart';
@@ -9,23 +10,22 @@ import 'package:umi_sea/infrastructure/exception/server_error_exception.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
 import 'package:umi_sea/main.dart';
 
-class CoralRepository {
-  CoralRepository()
-      : this.forTesting(
-          http: http.Client(),
-          connectivity: Connectivity(),
-        );
-  CoralRepository.forTesting(
-      {required http.Client http, required Connectivity connectivity})
-      : _http = http,
-        _connectivity = connectivity;
+part 'coral_repository.g.dart';
 
-  final http.Client _http;
-  final Connectivity _connectivity;
+@riverpod
+class CoralRepository extends _$CoralRepository {
+  @override
+  void build() => {
+        _http = http.Client(),
+        _connectivity = Connectivity(),
+      };
 
-  final Uri _uri = Uri.parse(Env.coralURL);
-  final String _apiKey = Env.coralApiKey;
-  Map<String, dynamic>? _jsonCache;
+  late final http.Client _http;
+  late final Connectivity _connectivity;
+
+  static final Uri _uri = Uri.parse(Env.coralURL);
+  static final String _apiKey = Env.coralApiKey;
+  static Map<String, dynamic>? _jsonCache;
 
   Future<Map<String, dynamic>?> getCoralGeoJson() async {
     if (_jsonCache != null) {

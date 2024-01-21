@@ -1,38 +1,21 @@
 import 'dart:async';
 
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/Component/icon/icon_png.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
-import 'package:umi_sea/infrastructure/mapbox/style_image.dart';
-import 'package:umi_sea/infrastructure/mapbox/style_layer.dart' as infra_layer;
-import 'package:umi_sea/infrastructure/mapbox/style_source.dart'
-    as infra_source;
 import 'package:umi_sea/main.dart';
 import 'package:umi_sea/map/coral/coral_repository.dart';
+import 'package:umi_sea/map/main_map/layer/style_image.dart';
+import 'package:umi_sea/map/main_map/layer/style_layer.dart';
+import 'package:umi_sea/map/main_map/layer/style_source.dart';
 
-class CoralLayer {
-  CoralLayer()
-      : this.forTesting(
-          styleImage: StyleImage(),
-          styleLayer: infra_layer.StyleLayer(),
-          styleSource: infra_source.StyleSource(),
-          repository: CoralRepository(),
-        );
+part 'coral_layer.g.dart';
 
-  CoralLayer.forTesting({
-    required StyleImage styleImage,
-    required infra_layer.StyleLayer styleLayer,
-    required infra_source.StyleSource styleSource,
-    required CoralRepository repository,
-  })  : _styleImage = styleImage,
-        _styleLayer = styleLayer,
-        _styleSource = styleSource,
-        _coralRepository = repository;
-
-  final StyleImage _styleImage;
-  final infra_layer.StyleLayer _styleLayer;
-  final infra_source.StyleSource _styleSource;
-  final CoralRepository _coralRepository;
+@riverpod
+class CoralLayer extends _$CoralLayer {
+  @override
+  void build() => {};
 
   static const ({String name, String path}) _source =
       (name: "corals", path: "assets/coral_cluster/source.json");
@@ -63,18 +46,28 @@ class CoralLayer {
     }
     _addingLayer = true;
     try {
-      await _styleImage.add(mapboxMap, _coralIconName, IconPng.coral.path);
-      await _styleImage.add(
-          mapboxMap, _coralMarkerIconName, IconPng.coralMarker.path);
+      await ref
+          .read(styleImageProvider.notifier)
+          .add(mapboxMap, _coralIconName, IconPng.coral.path);
+      await ref
+          .read(styleImageProvider.notifier)
+          .add(mapboxMap, _coralMarkerIconName, IconPng.coralMarker.path);
 
-      final geoJson = await _coralRepository.getCoralGeoJson();
-      await _styleSource.add(mapboxMap, _source.name, geoJson!, _source.path);
+      final geoJson =
+          await ref.read(coralRepositoryProvider.notifier).getCoralGeoJson();
+      await ref
+          .read(styleSourceProvider.notifier)
+          .add(mapboxMap, _source.name, geoJson!, _source.path);
 
-      await _styleLayer.add(mapboxMap, _clusterLayer.name, _clusterLayer.path);
-      await _styleLayer.add(
-          mapboxMap, _clusterCountLayer.name, _clusterCountLayer.path);
-      await _styleLayer.add(
-          mapboxMap, _unclusterLayer.name, _unclusterLayer.path);
+      await ref
+          .read(styleLayerProvider.notifier)
+          .add(mapboxMap, _clusterLayer.name, _clusterLayer.path);
+      await ref
+          .read(styleLayerProvider.notifier)
+          .add(mapboxMap, _clusterCountLayer.name, _clusterCountLayer.path);
+      await ref
+          .read(styleLayerProvider.notifier)
+          .add(mapboxMap, _unclusterLayer.name, _unclusterLayer.path);
     } on Exception {
       rethrow;
     } finally {
@@ -84,9 +77,15 @@ class CoralLayer {
 
   Future<void> remove(MapboxMap mapboxMap) async {
     try {
-      await _styleLayer.remove(mapboxMap, _clusterCountLayer.name);
-      await _styleLayer.remove(mapboxMap, _clusterLayer.name);
-      await _styleLayer.remove(mapboxMap, _unclusterLayer.name);
+      await ref
+          .read(styleLayerProvider.notifier)
+          .remove(mapboxMap, _clusterCountLayer.name);
+      await ref
+          .read(styleLayerProvider.notifier)
+          .remove(mapboxMap, _clusterLayer.name);
+      await ref
+          .read(styleLayerProvider.notifier)
+          .remove(mapboxMap, _unclusterLayer.name);
     } on Exception {
       rethrow;
     }
