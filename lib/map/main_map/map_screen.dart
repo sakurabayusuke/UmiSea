@@ -54,7 +54,7 @@ class MapScreen extends ConsumerWidget {
             ),
           ),
           Positioned(
-            top: 80,
+            top: 100,
             right: 24,
             child: atom.IconButton(
               icon: atom.Icon.settings,
