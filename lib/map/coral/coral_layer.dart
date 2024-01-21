@@ -3,10 +3,9 @@ import 'dart:async';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:umi_sea/Component/icon/icon_png.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
-import 'package:umi_sea/infrastructure/mapbox/style_image.dart';
-import 'package:umi_sea/infrastructure/mapbox/style_layer.dart' as infra_layer;
-import 'package:umi_sea/infrastructure/mapbox/style_source.dart'
-    as infra_source;
+import 'package:umi_sea/map/main_map/layer/style_image.dart';
+import 'package:umi_sea/map/main_map/layer/style_layer.dart' as infra_layer;
+import 'package:umi_sea/map/main_map/layer/style_source.dart' as infra_source;
 import 'package:umi_sea/main.dart';
 import 'package:umi_sea/map/coral/coral_repository.dart';
 
