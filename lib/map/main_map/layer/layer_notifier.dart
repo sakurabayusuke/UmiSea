@@ -10,11 +10,6 @@ part 'layer_notifier.g.dart';
 
 @riverpod
 class LayerNotifier extends _$LayerNotifier with ExceptionMethods {
-  LayerNotifier() : this.forTesting(coralLayer: CoralLayer());
-
-  LayerNotifier.forTesting({required coralLayer}) : _coralLayer = coralLayer;
-
-  final CoralLayer _coralLayer;
   late final MapboxMap _mapboxMap;
 
   @override
@@ -27,7 +22,7 @@ class LayerNotifier extends _$LayerNotifier with ExceptionMethods {
   Future<bool> addCoralLayer() async {
     state = const AsyncLoading<void>();
     try {
-      await _coralLayer.create(_mapboxMap);
+      await ref.read(coralLayerProvider.notifier).create(_mapboxMap);
       state = const AsyncData(null);
       return true;
     } on Exception catch (e, s) {
@@ -42,7 +37,7 @@ class LayerNotifier extends _$LayerNotifier with ExceptionMethods {
   Future<bool> removeCoralLayer() async {
     state = const AsyncLoading<void>();
     try {
-      await _coralLayer.remove(_mapboxMap);
+      await ref.read(coralLayerProvider.notifier).remove(_mapboxMap);
       state = const AsyncData(null);
       return true;
     } on Exception catch (e, s) {
