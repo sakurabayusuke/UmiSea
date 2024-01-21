@@ -68,7 +68,9 @@ class FilterSheet extends ConsumerWidget {
               ),
               switch (layerState) {
                 AsyncLoading() => Container(
-                    color: UmiSeaColors.loadingGray200,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: UmiSeaColors.loadingGray200),
                     child: const Center(
                       child: CircularProgressIndicator(),
                     ),
