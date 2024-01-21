@@ -48,10 +48,10 @@ class CoralLayer extends _$CoralLayer {
     try {
       await ref
           .read(styleImageProvider.notifier)
-          .add(mapboxMap, _coralIconName, IconPng.coral.path);
+          .add(mapboxMap, _coralIconName, IconPng.coral);
       await ref
           .read(styleImageProvider.notifier)
-          .add(mapboxMap, _coralMarkerIconName, IconPng.coralMarker.path);
+          .add(mapboxMap, _coralMarkerIconName, IconPng.coralMarker);
 
       final geoJson =
           await ref.read(coralRepositoryProvider.notifier).getCoralGeoJson();
