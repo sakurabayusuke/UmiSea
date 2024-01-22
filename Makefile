@@ -9,5 +9,10 @@ git-branch-clean:
 flutter-generate:
 	@fvm flutter pub run build_runner build --delete-conflicting-outputs
 
+## アプリアイコンの生成
 flutter-icon-generate:
 	@fvm flutter pub run flutter_launcher_icons:main
+
+## スプラッシュ画面の生成
+flutter-splash-generate:
+	@fvm flutter pub run flutter_native_splash:create
