@@ -8,3 +8,6 @@ git-branch-clean:
 ## コード自動生成
 flutter-generate:
 	@fvm flutter pub run build_runner build --delete-conflicting-outputs
+
+flutter-icon-generate:
+	@fvm flutter pub run flutter_launcher_icons:main
