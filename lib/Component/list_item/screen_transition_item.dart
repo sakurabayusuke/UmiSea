@@ -20,6 +20,11 @@ class ScreenTransitionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fontStyle = shouldDisplayEnglish
+        ? BodyTypography.extraLarge
+            .copyWith(fontFamily: GoogleFonts.istokWeb().fontFamily)
+        : BodyTypography.extraLarge;
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
@@ -63,10 +68,7 @@ class ScreenTransitionItem extends StatelessWidget {
             Expanded(
               child: Text(
                 title,
-                style: shouldDisplayEnglish
-                    ? BodyTypography.extraLarge
-                        .copyWith(fontFamily: GoogleFonts.istokWeb().fontFamily)
-                    : BodyTypography.extraLarge,
+                style: fontStyle,
               ),
             ),
             const atom.Icon(
