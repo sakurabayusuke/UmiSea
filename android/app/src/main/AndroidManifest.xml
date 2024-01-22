@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.umi_sea">
    <application
-        android:label="SEA FARLEN"
+        android:label="SeaFarlen"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
