@@ -27,8 +27,9 @@ class FilterSheet extends ConsumerWidget {
       controller: _controller,
       builder: (context, scrollController) {
         return Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(30), topLeft: Radius.circular(30)),
               color: UmiSeaColors.gray000),
           child: Stack(
             children: [
