@@ -8,7 +8,6 @@ import 'package:umi_sea/Component/buttons/icon_button.dart' as atom;
 import 'package:umi_sea/Component/icon/icon.dart' as atom;
 import 'package:umi_sea/map/main_map/map_screen_notifier.dart';
 import 'package:umi_sea/setting/setting_list_screen.dart';
-import 'package:umi_sea/splash_screen.dart';
 
 class MapScreen extends ConsumerWidget {
   const MapScreen({super.key});
