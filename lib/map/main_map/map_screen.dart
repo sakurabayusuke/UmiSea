@@ -86,16 +86,16 @@ class MapScreen extends ConsumerWidget {
               },
             ),
           ),
-          Visibility(
-            visible: !mapState.splashIsEnd,
-            child: AnimatedOpacity(
-              curve: Curves.easeOutBack,
-              onEnd: mapNotifier.removeSplash,
-              opacity: !mapState.initialized ? 1.0 : 0.0,
-              duration: const Duration(milliseconds: 1500),
-              child: const SplashScreen(),
-            ),
-          ),
+          // Visibility(
+          //   visible: !mapState.splashIsEnd,
+          //   child: AnimatedOpacity(
+          //     curve: Curves.easeOutBack,
+          //     onEnd: mapNotifier.removeSplash,
+          //     opacity: !mapState.initialized ? 1.0 : 0.0,
+          //     duration: const Duration(milliseconds: 1500),
+          //     child: const SplashScreen(),
+          //   ),
+          // ),
           FilterSheet(_sheetController),
         ],
       ),
