@@ -27,8 +27,6 @@ class _MapScreenState extends ConsumerState<MapScreen> {
   void initState() {
     super.initState();
     Timer.periodic(const Duration(minutes: 8), (Timer timer) async {
-      final loaded = await ref.read(adMobProvider.notifier).load();
-      if (!loaded) return;
       await ref.read(adMobProvider.notifier).show();
     });
   }

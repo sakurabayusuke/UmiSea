@@ -14,9 +14,7 @@ class AdMob extends _$AdMob {
   @override
   void build() {}
 
-  InterstitialAd? _ad;
-
-  Future<bool> load() async {
+  Future<void> show() async {
     late final String adUnitId;
     if (Platform.isAndroid) {
       adUnitId = AdHelper.androidInterstitialAdUnitId;
@@ -27,44 +25,37 @@ class AdMob extends _$AdMob {
     }
     if (adUnitId.isEmpty) {
       logger.t("${LoggerStateEnum.info}:スマフォ端末以外での操作のため、広告を読み込めませんでした。");
-      return false;
+      return;
     }
 
     logger.t("${LoggerStateEnum.trace.title}:インタースティシャル広告読み込み開始");
+
     await InterstitialAd.load(
       adUnitId: adUnitId,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
           logger.t("${LoggerStateEnum.trace.title}:インタースティシャル広告読み込み成功");
-          _ad = ad;
+          _show(ad);
         },
         onAdFailedToLoad: (error) {
           logger.t("${LoggerStateEnum.trace.title}:インタースティシャル広告読み込み失敗");
-          _ad = null;
         },
       ),
     );
-    return _ad != null;
   }
 
-  Future<void> show() async {
-    if (_ad == null) {
-      logger.w("${LoggerStateEnum.warning.title}:広告がないのに広告を表示しようとしています。");
-      return;
-    }
-    _ad!.fullScreenContentCallback = FullScreenContentCallback(
+  Future<void> _show(InterstitialAd ad) async {
+    ad.fullScreenContentCallback = FullScreenContentCallback(
       onAdFailedToShowFullScreenContent: (ad, error) {
         logger.w("${LoggerStateEnum.warning.title}:何かかが原因で広告が表示できませんでした");
       },
     );
     try {
-      logger.w("${LoggerStateEnum.trace.title}:広告表示開始");
-      await _ad!.show();
-      logger.w("${LoggerStateEnum.trace.title}:広告表示終了");
+      await ad.show();
+      logger.t("${LoggerStateEnum.trace.title}:広告表示");
     } finally {
-      _ad!.dispose();
-      _ad = null;
+      ad.dispose();
     }
   }
 }
