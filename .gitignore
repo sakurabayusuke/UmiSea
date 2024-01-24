@@ -94,3 +94,4 @@ android/app/google-services-pro.json
 *env.g.dart
 *.freezed.dart
 *.g.dart
+dart_defines/
