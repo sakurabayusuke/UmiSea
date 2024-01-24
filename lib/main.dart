@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logger/logger.dart';
 import 'package:umi_sea/Component/umi_sea_colors.dart';
 import 'package:umi_sea/infrastructure/repository/shared_preference_repository.dart';
@@ -9,6 +10,7 @@ import 'package:umi_sea/snack_bar_widget.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferenceRepository().init();
+  MobileAds.instance.initialize();
 
   runApp(
     const ProviderScope(
@@ -42,10 +44,10 @@ class App extends ConsumerWidget {
           onSurface: UmiSeaColors.gray900,
         ),
       ),
-      home: const Stack(
+      home: Stack(
         children: [
           MapScreen(),
-          SnackBarWidget(),
+          const SnackBarWidget(),
         ],
       ),
     );
