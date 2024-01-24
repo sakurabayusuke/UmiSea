@@ -1,22 +1,40 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart' as map;
 import 'package:umi_sea/Component/buttons/button_color.dart';
 import 'package:umi_sea/Map/filter/filter_sheet.dart';
+import 'package:umi_sea/ad/ad_mob.dart';
 import 'package:umi_sea/env/env.dart';
 import 'package:umi_sea/Component/buttons/icon_button.dart' as atom;
 import 'package:umi_sea/Component/icon/icon.dart' as atom;
 import 'package:umi_sea/map/main_map/map_screen_notifier.dart';
 import 'package:umi_sea/setting/setting_list_screen.dart';
 
-class MapScreen extends ConsumerWidget {
-  const MapScreen({super.key});
+class MapScreen extends ConsumerStatefulWidget {
+  MapScreen({super.key});
 
-  static final DraggableScrollableController _sheetController =
+  final DraggableScrollableController sheetController =
       DraggableScrollableController();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MapScreen> createState() => _MapScreenState();
+}
+
+class _MapScreenState extends ConsumerState<MapScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(minutes: 8), (Timer timer) async {
+      final loaded = await ref.read(adMobProvider.notifier).load();
+      if (!loaded) return;
+      await ref.read(adMobProvider.notifier).show();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final mapNotifier = ref.watch(mapScreenNotifierProvider.notifier);
     final mapState = ref.watch(mapScreenNotifierProvider);
 
@@ -45,7 +63,7 @@ class MapScreen extends ConsumerWidget {
               onPressed: () async {
                 if (mapState.bottomSheetIsAnimating) return;
                 mapNotifier.activateSheetAnimation();
-                await _sheetController.animateTo(0.45,
+                await widget.sheetController.animateTo(0.45,
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeIn);
                 mapNotifier.deactivateSheetAnimation();
@@ -85,7 +103,7 @@ class MapScreen extends ConsumerWidget {
               },
             ),
           ),
-          FilterSheet(_sheetController),
+          FilterSheet(widget.sheetController),
         ],
       ),
     );
