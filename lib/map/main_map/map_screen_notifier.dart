@@ -16,7 +16,6 @@ class MapScreenNotifier extends _$MapScreenNotifier {
   @override
   MapScreenState build() => const MapScreenState(
         initialized: false,
-        splashIsEnd: false,
         bottomSheetIsAnimating: false,
       );
 
@@ -24,8 +23,6 @@ class MapScreenNotifier extends _$MapScreenNotifier {
     mapboxMap.style.localizeLabels("ja", null);
     ref.read(layerNotifierProvider.notifier).initialize(mapboxMap);
 
-    // スプラッシュスクリーンを表示させておくための処理
-    await Future.delayed(const Duration(milliseconds: 1500));
     initialized();
   }
 
@@ -43,8 +40,4 @@ class MapScreenNotifier extends _$MapScreenNotifier {
 
   void deactivateSheetAnimation() =>
       state = state.copyWith(bottomSheetIsAnimating: false);
-
-  void removeSplash() {
-    state = state.copyWith(splashIsEnd: true);
-  }
 }
