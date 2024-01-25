@@ -34,6 +34,8 @@ class FilterSheet extends ConsumerWidget {
           child: Stack(
             children: [
               GridView.count(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height / 100 * 4),
                 controller: scrollController,
                 crossAxisCount: 4,
                 children: list,

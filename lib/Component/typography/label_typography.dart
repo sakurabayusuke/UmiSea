@@ -9,6 +9,20 @@ class LabelTypography {
 
   static final _font = GoogleFonts.kosugi();
 
+  /// fontSize:24
+  static final e3Large = _font.copyWith(fontSize: 24);
+
+  /// fontSize:24 Bold
+  static final e3LargeBold =
+      LabelTypography.e2Large.copyWith(fontWeight: FontWeight.bold);
+
+  /// fontSize:20
+  static final e2Large = _font.copyWith(fontSize: 20);
+
+  /// fontSize:20 Bold
+  static final e2LargeBold =
+      LabelTypography.e2Large.copyWith(fontWeight: FontWeight.bold);
+
   /// fontSize:18
   static final extraLarge = _font.copyWith(fontSize: 18);
 
