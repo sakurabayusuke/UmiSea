@@ -6,8 +6,10 @@ import 'package:umi_sea/Component/umi_sea_colors.dart';
 import 'package:umi_sea/Component/buttons/icon_button.dart'
     as umi_sea_component;
 import 'package:umi_sea/Component/icon/icon.dart' as umi_sea_icon;
-import 'package:umi_sea/setting/setting_enum.dart';
-import 'package:umi_sea/setting/setting_navigator.dart';
+import 'package:umi_sea/setting/data_source_screen.dart';
+import 'package:umi_sea/setting/license/license_list_screen.dart';
+import 'package:umi_sea/setting/url_enum.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingListScreen extends StatelessWidget {
   const SettingListScreen({super.key});
@@ -29,12 +31,32 @@ class SettingListScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          for (final setting in SettingEnum.values)
-            ScreenTransitionItem(
-              nextWidget: SettingNavigator().getScreen(setting),
-              title: setting.displayName,
-              shouldDisplayEnglish: false,
-            ),
+          const ScreenTransitionItem(
+            nextWidget: DataSourceScreen(),
+            anotherProcess: null,
+            title: "データ出典",
+            shouldDisplayEnglish: false,
+          ),
+          ScreenTransitionItem(
+            nextWidget: null,
+            anotherProcess: () =>
+                launchUrl(Uri.parse(UrlEnum.termOfService.url)),
+            title: "利用規約",
+            shouldDisplayEnglish: false,
+          ),
+          ScreenTransitionItem(
+            nextWidget: null,
+            anotherProcess: () =>
+                launchUrl(Uri.parse(UrlEnum.privacyPolicy.url)),
+            title: "プライバシーポリシー",
+            shouldDisplayEnglish: false,
+          ),
+          const ScreenTransitionItem(
+            nextWidget: LicenseListScreen(),
+            anotherProcess: null,
+            title: "ライセンス",
+            shouldDisplayEnglish: false,
+          )
         ],
       ),
     );
