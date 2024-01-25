@@ -31,6 +31,7 @@ class ScreenTransitionItem extends StatelessWidget {
       onTap: () {
         if (anotherProcess != null) {
           anotherProcess!();
+          return;
         }
         Navigator.of(context).push(
           PageRouteBuilder(
