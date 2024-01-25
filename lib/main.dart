@@ -4,7 +4,9 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logger/logger.dart';
 import 'package:umi_sea/Component/umi_sea_colors.dart';
 import 'package:umi_sea/infrastructure/repository/shared_preference_repository.dart';
+import 'package:umi_sea/initial_consent_screen.dart';
 import 'package:umi_sea/map/main_map/map_screen.dart';
+import 'package:umi_sea/setting/initial_consent_repository.dart';
 import 'package:umi_sea/snack_bar_widget.dart';
 
 void main() async {
@@ -26,6 +28,17 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final needConsentScreen = !ref.read(initialConsentRepositoryProvider);
+
+    final mainScreen = needConsentScreen
+        ? const InitialConsentScreen()
+        : Stack(
+            children: [
+              MapScreen(),
+              const SnackBarWidget(),
+            ],
+          );
+
     return MaterialApp(
       title: 'Sea Farlen',
       theme: ThemeData(
@@ -44,12 +57,7 @@ class App extends ConsumerWidget {
           onSurface: UmiSeaColors.gray900,
         ),
       ),
-      home: Stack(
-        children: [
-          MapScreen(),
-          const SnackBarWidget(),
-        ],
-      ),
+      home: mainScreen,
     );
   }
 }
