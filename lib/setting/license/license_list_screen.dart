@@ -31,6 +31,7 @@ class LicenseListScreen extends StatelessWidget {
         children: [
           for (final license in LicenseEnum.values)
             ScreenTransitionItem(
+              anotherProcess: null,
               nextWidget: LicenseScreen(
                 title: license.title,
                 content: license.content,

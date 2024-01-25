@@ -10,11 +10,13 @@ class ScreenTransitionItem extends StatelessWidget {
   const ScreenTransitionItem({
     super.key,
     required this.nextWidget,
+    required this.anotherProcess,
     required this.title,
     required this.shouldDisplayEnglish,
   });
 
-  final Widget nextWidget;
+  final Widget? nextWidget;
+  final Function? anotherProcess;
   final String title;
   final bool shouldDisplayEnglish;
 
@@ -27,10 +29,14 @@ class ScreenTransitionItem extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
+        if (anotherProcess != null) {
+          anotherProcess!();
+          return;
+        }
         Navigator.of(context).push(
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) {
-              return nextWidget;
+              return nextWidget!;
             },
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
