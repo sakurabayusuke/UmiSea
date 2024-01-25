@@ -5,15 +5,11 @@ import 'package:umi_sea/Component/typography/header_typography.dart';
 import 'package:umi_sea/Component/umi_sea_colors.dart';
 import 'package:umi_sea/map/main_map/map_screen.dart';
 import 'package:umi_sea/setting/initial_consent_repository.dart';
+import 'package:umi_sea/setting/url_enum.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InitialConsentScreen extends ConsumerWidget {
   const InitialConsentScreen({super.key});
-
-  final termOfServiceUrl =
-      "https://github.com/sakurabayusuke/UmiSea/wiki/Sea-Farlen-%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84";
-  final privacyPolicyUrl =
-      "https://github.com/sakurabayusuke/UmiSea/wiki/Sea-Farlen-%E3%83%97%E3%83%A9%E3%82%A4%E3%83%90%E3%82%B7%E3%83%BC%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC";
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,13 +39,13 @@ class InitialConsentScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 48),
             Text(
-                "本アプリを使うには利用規約とプライバシーポリシーへの同意が必要です。下記の Web サイトからご覧いただけますので、内容を理解した上で同意をお願いします。",
+                "本アプリは無料で使えますが、広告表示があるため、利用規約とプライバシーポリシーへの同意が必要です。下記の Web サイトからご覧いただけますので、内容を理解した上で同意をお願いします。",
                 style: bodyTypo),
             const SizedBox(height: 24),
             GestureDetector(
               child: Text("Sea Farlen 利用規約", style: linkTypo),
               onTap: () => launchUrl(
-                Uri.parse(termOfServiceUrl),
+                Uri.parse(UrlEnum.termOfService.url),
               ),
             ),
             const SizedBox(height: 8),
@@ -59,7 +55,7 @@ class InitialConsentScreen extends ConsumerWidget {
                 style: linkTypo,
               ),
               onTap: () => launchUrl(
-                Uri.parse(privacyPolicyUrl),
+                Uri.parse(UrlEnum.privacyPolicy.url),
               ),
             ),
             Expanded(child: Container()),
