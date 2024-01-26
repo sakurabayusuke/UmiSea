@@ -39,15 +39,19 @@ class SettingListScreen extends StatelessWidget {
           ),
           ScreenTransitionItem(
             nextWidget: null,
-            anotherProcess: () =>
-                launchUrl(Uri.parse(UrlEnum.termOfService.url)),
+            anotherProcess: () => launchUrl(
+              Uri.parse(UrlEnum.termOfService.url),
+              mode: LaunchMode.externalApplication,
+            ),
             title: "利用規約",
             shouldDisplayEnglish: false,
           ),
           ScreenTransitionItem(
             nextWidget: null,
-            anotherProcess: () =>
-                launchUrl(Uri.parse(UrlEnum.privacyPolicy.url)),
+            anotherProcess: () => launchUrl(
+              Uri.parse(UrlEnum.privacyPolicy.url),
+              mode: LaunchMode.externalApplication,
+            ),
             title: "プライバシーポリシー",
             shouldDisplayEnglish: false,
           ),

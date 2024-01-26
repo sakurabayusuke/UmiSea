@@ -44,9 +44,8 @@ class InitialConsentScreen extends ConsumerWidget {
             const SizedBox(height: 24),
             GestureDetector(
               child: Text("Sea Farlen 利用規約", style: linkTypo),
-              onTap: () => launchUrl(
-                Uri.parse(UrlEnum.termOfService.url),
-              ),
+              onTap: () => launchUrl(Uri.parse(UrlEnum.termOfService.url),
+                  mode: LaunchMode.externalApplication),
             ),
             const SizedBox(height: 8),
             GestureDetector(
@@ -54,9 +53,8 @@ class InitialConsentScreen extends ConsumerWidget {
                 "Sea Farlen プライバシーポリシー",
                 style: linkTypo,
               ),
-              onTap: () => launchUrl(
-                Uri.parse(UrlEnum.privacyPolicy.url),
-              ),
+              onTap: () => launchUrl(Uri.parse(UrlEnum.privacyPolicy.url),
+                  mode: LaunchMode.externalApplication),
             ),
             Expanded(child: Container()),
             ElevatedButton(
