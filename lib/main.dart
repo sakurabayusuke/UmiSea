@@ -1,35 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:logger/logger.dart';
+import 'package:umi_sea/Component/umi_sea_colors.dart';
+import 'package:umi_sea/infrastructure/repository/shared_preference_repository.dart';
+import 'package:umi_sea/initial_consent_screen.dart';
+import 'package:umi_sea/map/main_map/map_screen.dart';
+import 'package:umi_sea/setting/initial_consent_repository.dart';
+import 'package:umi_sea/snack_bar_widget.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferenceRepository().init();
+  MobileAds.instance.initialize();
+  await GoogleFonts.pendingFonts([
+    GoogleFonts.kosugi(),
+    GoogleFonts.istokWeb(),
+  ]);
+
+  runApp(
+    const ProviderScope(
+      child: App(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+final logger = Logger();
 
-  // This widget is the root of your application.
+class App extends ConsumerWidget {
+  const App({super.key});
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final needConsentScreen = !ref.read(initialConsentRepositoryProvider);
+    final mainScreen = needConsentScreen
+        ? const InitialConsentScreen()
+        : Stack(
+            children: [
+              MapScreen(),
+              const SnackBarWidget(),
+            ],
+          );
+
     return MaterialApp(
-      title: 'UmiSea',
+      title: 'Sea Farlen',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const Center(
-        child: Text(
-          "UmiSea",
-          style: TextStyle(color: Colors.blue),
+        useMaterial3: true,
+        colorScheme: const ColorScheme(
+          brightness: Brightness.light,
+          primary: UmiSeaColors.blue400,
+          onPrimary: UmiSeaColors.gray000,
+          secondary: UmiSeaColors.yellow500,
+          onSecondary: UmiSeaColors.gray900,
+          error: UmiSeaColors.red500,
+          onError: UmiSeaColors.gray900,
+          background: UmiSeaColors.gray000,
+          onBackground: UmiSeaColors.gray900,
+          surface: UmiSeaColors.gray000,
+          onSurface: UmiSeaColors.gray900,
         ),
       ),
+      home: mainScreen,
     );
   }
 }

@@ -21,6 +21,9 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def mapboxToken = System.getenv("MAPBOX_SECRET_ACCESS_TOKEN") ?: ""
+project.setProperty("SDK_REGISTRY_TOKEN", mapboxToken)
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -47,10 +50,11 @@ android {
         applicationId "com.example.umi_sea"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        resValue "string", "ad_mob_app_id_android", adMobAppIdAndroid
     }
 
     buildTypes {

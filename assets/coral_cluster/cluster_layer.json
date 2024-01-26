@@ -1,0 +1,35 @@
+{
+    "id": "cluster_layer",
+    "type": "circle",
+    "source": "corals",
+    "filter": [
+        "has",
+        "point_count"
+    ],
+    "paint": {
+        "circle-color": [
+            "step",
+            [
+                "get",
+                "point_count"
+            ],
+            "#FAB005",
+            150,
+            "#228BE6",
+            500,
+            "#12B886"
+        ],
+        "circle-radius": [
+            "step",
+            [
+                "get",
+                "point_count"
+            ],
+            25,
+            150,
+            35,
+            500,
+            45
+        ]
+    }
+}

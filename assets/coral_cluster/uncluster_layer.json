@@ -1,0 +1,18 @@
+{
+    "id": "uncluster_layer",
+    "type": "symbol",
+    "source": "corals",
+    "filter": [
+        "!",
+        [
+            "has",
+            "point_count"
+        ]
+    ],
+    "layout": {
+        "icon-image": "coral_marker_icon",
+        "icon-anchor": "bottom",
+        "icon-size": 1.8,
+        "icon-allow-overlap": true
+    }
+}
