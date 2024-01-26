@@ -16,3 +16,6 @@ flutter-icon-generate:
 ## スプラッシュ画面の生成
 flutter-splash-generate:
 	@fvm flutter pub run flutter_native_splash:create
+
+## release build で App Store 提出用の ipa を出力
+	@fvm flutter build ipa --obfuscate --split-debug-info --dart-define-from-file=dart_defines/release.json
