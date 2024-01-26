@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logger/logger.dart';
 import 'package:umi_sea/Component/umi_sea_colors.dart';
@@ -13,6 +14,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferenceRepository().init();
   MobileAds.instance.initialize();
+  await GoogleFonts.pendingFonts([
+    GoogleFonts.kosugi(),
+    GoogleFonts.istokWeb(),
+  ]);
 
   runApp(
     const ProviderScope(
@@ -29,7 +34,6 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final needConsentScreen = !ref.read(initialConsentRepositoryProvider);
-
     final mainScreen = needConsentScreen
         ? const InitialConsentScreen()
         : Stack(
@@ -41,6 +45,7 @@ class App extends ConsumerWidget {
 
     return MaterialApp(
       title: 'Sea Farlen',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: const ColorScheme(
