@@ -18,4 +18,5 @@ flutter-splash-generate:
 	@fvm flutter pub run flutter_native_splash:create
 
 ## release build で App Store 提出用の ipa を出力
+flutter-release-build-ipa:
 	@fvm flutter build ipa --obfuscate --split-debug-info --dart-define-from-file=dart_defines/release.json
