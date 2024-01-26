@@ -95,3 +95,4 @@ android/app/google-services-pro.json
 *.freezed.dart
 *.g.dart
 dart_defines/
+app.ios-arm64.symbols
