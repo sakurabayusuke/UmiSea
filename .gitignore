@@ -96,3 +96,4 @@ android/app/google-services-pro.json
 *.g.dart
 dart_defines/
 app.ios-arm64.symbols
+key.jks
