@@ -20,6 +20,10 @@ flutter-splash-generate:
 ## ExportOptions.plist を作るためのコマンド
 flutter-build-ipa:
 	@fvm flutter build ipa
+
 ## release build で App Store 提出用の ipa を出力
 flutter-release-build-ipa:
-	@fvm flutter build ipa --obfuscate --split-debug-info --dart-define-from-file=dart_defines/release.json --export-options-plist="ios/configs/ExportOptions.plist"
+	@fvm flutter build ipa --release --obfuscate --split-debug-info --dart-define-from-file=dart_defines/release.json --export-options-plist="ios/configs/ExportOptions.plist"
+
+flutter-release-build-appbundle:
+	@fvm flutter build appbundle --release --obfuscate --split-debug-info --dart-define-from-file=dart_defines/release.json
