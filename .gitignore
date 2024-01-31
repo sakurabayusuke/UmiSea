@@ -36,6 +36,7 @@
 **/android/gradlew
 **/android/gradlew.bat
 **/android/local.properties
+**/android/key.properties
 **/android/**/GeneratedPluginRegistrant.java
 **/android/app/google-services.json
 **/android/app/key.jks
@@ -95,3 +96,6 @@ android/app/google-services-pro.json
 *.freezed.dart
 *.g.dart
 dart_defines/
+app.ios-arm64.symbols
+key.jks
+symbole/*

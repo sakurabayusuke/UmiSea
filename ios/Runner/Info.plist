@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>このアプリは現在位置情報を直接使用していませんが、組み込まれている機能の一部で位置情報が必要になる可能性があります。</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>このアプリは現在位置情報を直接使用していませんが、組み込まれている機能の一部で位置情報が必要になる可能性があります。</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
