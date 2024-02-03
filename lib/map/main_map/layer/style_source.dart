@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:umi_sea/infrastructure/logger/logger.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
-import 'package:umi_sea/main.dart';
 import 'package:umi_sea/map/mapbox.dart';
 
 part 'style_source.g.dart';
