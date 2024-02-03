@@ -12,7 +12,7 @@ import 'package:umi_sea/main.dart';
 
 part 'coral_repository.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class CoralRepository extends _$CoralRepository {
   @override
   void build() => {
