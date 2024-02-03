@@ -33,22 +33,25 @@ class CoralRepository extends _$CoralRepository {
       throw NetworkException();
     }
 
-    var res = await ref
-        .read(httpClientProvider)
-        .get(_uri, headers: {"x-api-key": _apiKey});
+    try {
+      var res = await ref
+          .read(httpClientProvider)
+          .get(_uri, headers: {"x-api-key": _apiKey});
 
-    if (res.statusCode == 500) {
-      logger.e("${LoggerStateEnum.exception}:coral-lambda からの応答がありません。");
-      throw TimeoutException("サーバーから応答がありません。");
+      if (res.statusCode == 500) {
+        logger.e("${LoggerStateEnum.exception}:coral-lambda からの応答がありません。");
+        throw TimeoutException("サーバーから応答がありません。");
+      }
+      if (res.statusCode != 200) {
+        logger.e(
+            "${LoggerStateEnum.exception}:coral-lambda になんらかの異常がありデータが取得できません。");
+        throw ServerErrorException();
+      }
+      final Map<String, dynamic> geoJson = jsonDecode(res.body);
+      _jsonCache = geoJson;
+      return geoJson;
+    } finally {
+      ref.read(httpClientProvider).close();
     }
-    if (res.statusCode != 200) {
-      logger.e(
-          "${LoggerStateEnum.exception}:coral-lambda になんらかの異常がありデータが取得できません。");
-      throw ServerErrorException();
-    }
-
-    final Map<String, dynamic> geoJson = jsonDecode(res.body);
-    _jsonCache = geoJson;
-    return geoJson;
   }
 }
