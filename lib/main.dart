@@ -26,8 +26,6 @@ void main() async {
   );
 }
 
-final logger = Logger();
-
 class App extends ConsumerWidget {
   const App({super.key});
 

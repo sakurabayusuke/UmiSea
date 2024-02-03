@@ -1,6 +1,6 @@
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:umi_sea/main.dart';
+import 'package:umi_sea/infrastructure/logger/logger.dart';
 
 part 'mapbox.g.dart';
 

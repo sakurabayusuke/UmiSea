@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/Component/icon/icon_png.dart';
+import 'package:umi_sea/infrastructure/logger/logger.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
-import 'package:umi_sea/main.dart';
 import 'package:umi_sea/map/mapbox.dart';
 
 part 'style_image.g.dart';

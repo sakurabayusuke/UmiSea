@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/ad/ad_helper.dart';
+import 'package:umi_sea/infrastructure/logger/logger.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
-import 'package:umi_sea/main.dart';
 
 part 'ad_mob.g.dart';
 

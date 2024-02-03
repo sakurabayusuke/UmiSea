@@ -6,10 +6,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/env/env.dart';
 import 'package:umi_sea/infrastructure/exception/network_exception.dart';
 import 'package:umi_sea/infrastructure/exception/server_error_exception.dart';
+import 'package:umi_sea/infrastructure/logger/logger.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
 import 'package:umi_sea/infrastructure/repository/connectivity.dart';
 import 'package:umi_sea/infrastructure/repository/http_client.dart';
-import 'package:umi_sea/main.dart';
 
 part 'coral_repository.g.dart';
 
