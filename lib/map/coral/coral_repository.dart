@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:umi_sea/infrastructure/exception/network_exception.dart';
 import 'package:umi_sea/infrastructure/exception/server_error_exception.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
+import 'package:umi_sea/infrastructure/repository/http_client.dart';
 import 'package:umi_sea/main.dart';
 
 part 'coral_repository.g.dart';
@@ -16,11 +17,9 @@ part 'coral_repository.g.dart';
 class CoralRepository extends _$CoralRepository {
   @override
   void build() => {
-        _http = http.Client(),
         _connectivity = Connectivity(),
       };
 
-  late final http.Client _http;
   late final Connectivity _connectivity;
 
   static final Uri _uri = Uri.parse(Env.coralURL);
@@ -37,7 +36,9 @@ class CoralRepository extends _$CoralRepository {
       throw NetworkException();
     }
 
-    var res = await _http.get(_uri, headers: {"x-api-key": _apiKey});
+    var res = await ref
+        .read(httpClientProvider)
+        .get(_uri, headers: {"x-api-key": _apiKey});
 
     if (res.statusCode == 500) {
       logger.e("${LoggerStateEnum.exception}:coral-lambda からの応答がありません。");
