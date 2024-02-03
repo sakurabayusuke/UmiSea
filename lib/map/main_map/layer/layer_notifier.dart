@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/infrastructure/exception/exception_mixin.dart';
 import 'package:umi_sea/map/coral/coral_layer.dart';
@@ -10,19 +9,13 @@ part 'layer_notifier.g.dart';
 
 @riverpod
 class LayerNotifier extends _$LayerNotifier with ExceptionMethods {
-  late final MapboxMap _mapboxMap;
-
   @override
   FutureOr<void> build() => {};
-
-  void initialize(MapboxMap mapboxMap) {
-    _mapboxMap = mapboxMap;
-  }
 
   Future<bool> addCoralLayer() async {
     state = const AsyncLoading<void>();
     try {
-      await ref.read(coralLayerProvider.notifier).create(_mapboxMap);
+      await ref.read(coralLayerProvider.notifier).create();
       state = const AsyncData(null);
       return true;
     } on Exception catch (e, s) {
@@ -37,7 +30,7 @@ class LayerNotifier extends _$LayerNotifier with ExceptionMethods {
   Future<bool> removeCoralLayer() async {
     state = const AsyncLoading<void>();
     try {
-      await ref.read(coralLayerProvider.notifier).remove(_mapboxMap);
+      await ref.read(coralLayerProvider.notifier).remove();
       state = const AsyncData(null);
       return true;
     } on Exception catch (e, s) {
