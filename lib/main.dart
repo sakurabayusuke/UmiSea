@@ -12,8 +12,8 @@ import 'package:umi_sea/snack_bar_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SharedPreferenceRepository().init();
-  MobileAds.instance.initialize();
+  await MobileAds.instance.initialize();
+  await initSharedPreference();
   await GoogleFonts.pendingFonts([
     GoogleFonts.kosugi(),
     GoogleFonts.istokWeb(),

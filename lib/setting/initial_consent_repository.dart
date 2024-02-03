@@ -7,16 +7,11 @@ part 'initial_consent_repository.g.dart';
 
 @riverpod
 class InitialConsentRepository extends _$InitialConsentRepository {
-  @override
-  bool build() {
-    final pref = SharedPreferenceRepository();
-    return pref.getBool(key) ?? false;
-  }
-
   static const key = "initialConsent";
 
-  Future<void> setInitialConsent(bool value) async {
-    final pref = SharedPreferenceRepository();
-    await pref.setBool(key, value);
-  }
+  @override
+  bool build() => ref.read(sharedPreferencesProvider).getBool(key) ?? false;
+
+  Future<void> setInitialConsent(bool value) async =>
+      await ref.read(sharedPreferencesProvider).setBool(key, value);
 }

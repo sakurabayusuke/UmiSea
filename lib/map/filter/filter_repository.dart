@@ -1,28 +1,30 @@
-import 'package:umi_sea/map/filter/filter.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/infrastructure/repository/shared_preference_repository.dart';
+import 'package:umi_sea/map/filter/filter.dart';
 
-class FilterRepository {
-  static final _repository = FilterRepository._internal();
-  factory FilterRepository() => _repository;
-  FilterRepository._internal();
+part 'filter_repository.g.dart';
 
-  final SharedPreferenceRepository _prefs = SharedPreferenceRepository();
+@riverpod
+class FilterRepository extends _$FilterRepository {
+  @override
+  void build() {}
 
-  Map<Filter, bool> get getFilter {
+  Map<Filter, bool> get() {
     Map<Filter, bool> filtersSelected = {};
     for (var filter in Filter.values) {
-      filtersSelected[filter] = _prefs.getBool(filter.name) ?? false;
+      filtersSelected[filter] =
+          ref.read(sharedPreferencesProvider).getBool(filter.name) ?? false;
     }
     return filtersSelected;
   }
 
   void setFilters(Map<Filter, bool> filters) {
     filters.forEach((Filter key, bool value) {
-      _prefs.setBool(key.name, value);
+      ref.read(sharedPreferencesProvider).setBool(key.name, value);
     });
   }
 
   void setFilter(Filter filter, bool isSelected) {
-    _prefs.setBool(filter.name, isSelected);
+    ref.read(sharedPreferencesProvider).setBool(filter.name, isSelected);
   }
 }

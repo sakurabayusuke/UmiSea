@@ -8,22 +8,12 @@ part 'filter_sheet_notifier.g.dart';
 
 @riverpod
 class FilterSheetNotifier extends _$FilterSheetNotifier {
-  FilterSheetNotifier()
-      : this.forTesting(
-          repository: FilterRepository(),
-        );
-  FilterSheetNotifier.forTesting({
-    required FilterRepository repository,
-  }) : _repository = repository;
-
   @override
   FilterSheetState build() => FilterSheetState(
-        filters: _repository.getFilter,
+        filters: ref.read(filterRepositoryProvider.notifier).get(),
         isAnimating: false,
         requireShowErrorMessage: false,
       );
-
-  final FilterRepository _repository;
 
   Future<void> addCoralLayer(Filter filter) async {
     final result =
@@ -31,7 +21,7 @@ class FilterSheetNotifier extends _$FilterSheetNotifier {
     if (!result) return;
     state.filters[filter] = true;
     state = state.copyWith(filters: state.filters);
-    _repository.setFilters(state.filters);
+    ref.read(filterRepositoryProvider.notifier).setFilters(state.filters);
   }
 
   Future<void> removeCoralLayer(Filter filter) async {
@@ -40,6 +30,6 @@ class FilterSheetNotifier extends _$FilterSheetNotifier {
     if (!result) return;
     state.filters[filter] = false;
     state = state.copyWith(filters: state.filters);
-    _repository.setFilters(state.filters);
+    ref.read(filterRepositoryProvider.notifier).setFilters(state.filters);
   }
 }
