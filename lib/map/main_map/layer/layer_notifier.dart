@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/infrastructure/exception/exception_mixin.dart';
 import 'package:umi_sea/map/coral/coral_layer.dart';
-import 'package:umi_sea/snack_bar_notifier.dart';
+import 'package:umi_sea/snack_bar/snack_bar_notifier.dart';
 
 part 'layer_notifier.g.dart';
 

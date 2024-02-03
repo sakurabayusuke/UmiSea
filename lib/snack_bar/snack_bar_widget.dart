@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:umi_sea/Component/typography/body_typography.dart';
 import 'package:umi_sea/Component/umi_sea_colors.dart';
-import 'package:umi_sea/snack_bar_notifier.dart';
+import 'package:umi_sea/snack_bar/snack_bar_notifier.dart';
 
 class SnackBarWidget extends ConsumerStatefulWidget {
   const SnackBarWidget({super.key});
