@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/Component/icon/icon_png.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
@@ -39,7 +38,7 @@ class CoralLayer extends _$CoralLayer {
   /// レイヤーが追加中かどうか。状況によって複数回 create がコールされてしまうため、その防止策。
   static bool _addingLayer = false;
 
-  Future<void> create(MapboxMap mapboxMap) async {
+  Future<void> create() async {
     if (_addingLayer) {
       logger.w("${LoggerStateEnum.warning}:現在、珊瑚礁レイヤーを追加中です。新規の命令は受け付けられません。");
       return;
@@ -48,26 +47,26 @@ class CoralLayer extends _$CoralLayer {
     try {
       await ref
           .read(styleImageProvider.notifier)
-          .add(mapboxMap, _coralIconName, IconPng.coral);
+          .add(_coralIconName, IconPng.coral);
       await ref
           .read(styleImageProvider.notifier)
-          .add(mapboxMap, _coralMarkerIconName, IconPng.coralMarker);
+          .add(_coralMarkerIconName, IconPng.coralMarker);
 
       final geoJson =
           await ref.read(coralRepositoryProvider.notifier).getCoralGeoJson();
       await ref
           .read(styleSourceProvider.notifier)
-          .add(mapboxMap, _source.name, geoJson!, _source.path);
+          .add(_source.name, geoJson!, _source.path);
 
       await ref
           .read(styleLayerProvider.notifier)
-          .add(mapboxMap, _clusterLayer.name, _clusterLayer.path);
+          .add(_clusterLayer.name, _clusterLayer.path);
       await ref
           .read(styleLayerProvider.notifier)
-          .add(mapboxMap, _clusterCountLayer.name, _clusterCountLayer.path);
+          .add(_clusterCountLayer.name, _clusterCountLayer.path);
       await ref
           .read(styleLayerProvider.notifier)
-          .add(mapboxMap, _unclusterLayer.name, _unclusterLayer.path);
+          .add(_unclusterLayer.name, _unclusterLayer.path);
     } on Exception {
       rethrow;
     } finally {
@@ -75,17 +74,13 @@ class CoralLayer extends _$CoralLayer {
     }
   }
 
-  Future<void> remove(MapboxMap mapboxMap) async {
+  Future<void> remove() async {
     try {
       await ref
           .read(styleLayerProvider.notifier)
-          .remove(mapboxMap, _clusterCountLayer.name);
-      await ref
-          .read(styleLayerProvider.notifier)
-          .remove(mapboxMap, _clusterLayer.name);
-      await ref
-          .read(styleLayerProvider.notifier)
-          .remove(mapboxMap, _unclusterLayer.name);
+          .remove(_clusterCountLayer.name);
+      await ref.read(styleLayerProvider.notifier).remove(_clusterLayer.name);
+      await ref.read(styleLayerProvider.notifier).remove(_unclusterLayer.name);
     } on Exception {
       rethrow;
     }

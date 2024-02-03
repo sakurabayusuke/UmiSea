@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
 import 'package:umi_sea/main.dart';
+import 'package:umi_sea/map/mapbox.dart';
 
 part 'style_source.g.dart';
 
@@ -13,8 +13,9 @@ class StyleSource extends _$StyleSource {
   @override
   void build() => {};
 
-  Future<void> add(MapboxMap mapboxMap, String sourceName,
-      Map<String, dynamic> geoJson, String sourceFormatPath) async {
+  Future<void> add(String sourceName, Map<String, dynamic> geoJson,
+      String sourceFormatPath) async {
+    final mapboxMap = ref.read(mapboxMapProvider);
     final sourceExist = await mapboxMap.style.styleSourceExists(sourceName);
     if (sourceExist) return;
 

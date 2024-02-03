@@ -4,15 +4,12 @@ import 'package:umi_sea/map/filter/filter.dart';
 import 'package:umi_sea/map/filter/filter_sheet_notifier.dart';
 import 'package:umi_sea/map/main_map/layer/layer_notifier.dart';
 import 'package:umi_sea/map/main_map/map_screen_state.dart';
+import 'package:umi_sea/map/mapbox.dart';
 
 part 'map_screen_notifier.g.dart';
 
 @riverpod
 class MapScreenNotifier extends _$MapScreenNotifier {
-  MapScreenNotifier() : this.forTesting();
-
-  MapScreenNotifier.forTesting();
-
   @override
   MapScreenState build() => const MapScreenState(
         initialized: false,
@@ -20,8 +17,8 @@ class MapScreenNotifier extends _$MapScreenNotifier {
       );
 
   Future<void> onMapCreated(MapboxMap mapboxMap) async {
+    initMapboxMap(mapboxMap);
     mapboxMap.style.localizeLabels("ja", null);
-    ref.read(layerNotifierProvider.notifier).initialize(mapboxMap);
 
     initialized();
   }

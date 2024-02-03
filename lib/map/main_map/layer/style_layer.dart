@@ -1,8 +1,8 @@
 import 'package:flutter/services.dart';
-import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:umi_sea/infrastructure/logger/logger_state_enum.dart';
 import 'package:umi_sea/main.dart';
+import 'package:umi_sea/map/mapbox.dart';
 
 part 'style_layer.g.dart';
 
@@ -11,8 +11,8 @@ class StyleLayer extends _$StyleLayer {
   @override
   void build() => {};
 
-  Future<void> add(
-      MapboxMap mapboxMap, String layerName, String layerPath) async {
+  Future<void> add(String layerName, String layerPath) async {
+    final mapboxMap = ref.read(mapboxMapProvider);
     final exist = await mapboxMap.style.styleLayerExists(layerName);
     if (exist) return;
 
@@ -31,7 +31,8 @@ class StyleLayer extends _$StyleLayer {
     }
   }
 
-  Future<void> remove(MapboxMap mapboxMap, String layerName) async {
+  Future<void> remove(String layerName) async {
+    final mapboxMap = ref.read(mapboxMapProvider);
     final exist = await mapboxMap.style.styleLayerExists(layerName);
     if (!exist) return;
     try {
