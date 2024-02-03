@@ -3,5 +3,5 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'connectivity.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 Connectivity connectivity(ConnectivityRef ref) => Connectivity();
