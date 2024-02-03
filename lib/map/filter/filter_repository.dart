@@ -4,7 +4,7 @@ import 'package:umi_sea/map/filter/filter.dart';
 
 part 'filter_repository.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class FilterRepository extends _$FilterRepository {
   @override
   void build() {}
